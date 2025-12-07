@@ -139,3 +139,14 @@ button:focus {
     width: 160px;
     height: 49px;
 }
+
+.header__open span{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #ffffff;
+    opacity: .3;
+    transition: .12s;
+}
