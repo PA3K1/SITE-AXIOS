@@ -77,6 +77,12 @@
     background-color: #7775D1;
     border-radius: 50px;
     border: 0;
+
+}
+
+.entrance__button-2 {
+        width: 320px;
+    height: 49px;
 }
 
 .entrance__button:hover {
@@ -114,4 +120,22 @@ button:focus {
 .windoy__content{
     max-width: 400px;
     min-height: 474px;
+}
+
+.form__content__captha{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.captha{
+    width: 150px;
+    height: 50px;
+}
+
+.form__captha{
+    width: 160px;
+    height: 49px;
 }
