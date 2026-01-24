@@ -1,3 +1,4 @@
+// ============= МОДАЛЬНЫЕ ОКНА =============
 function openModal(e) {
     e.preventDefault();
     const modal = document.querySelector('.modal');
@@ -18,35 +19,28 @@ function closeModal() {
     const activeModal = document.querySelector('.modal[style*="display: block"]');
     if (activeModal) {
         activeModal.style.opacity = '0';
-        
         setTimeout(() => activeModal.style.display = 'none', 300);
     }
 }
 
-
-
-// 🔹 Хранилище пользователей (только для демо)
+// ============= ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ =============
 let users = [
     {email: "admin@test.com", password: "12345"},
     {email: "user@test.com", password: "qwerty"}
 ];
 
-// 🔹 Функция проверки капчи
 function checkCaptcha(inputValue) {
     return inputValue === "6138B";
 }
 
-// 🔹 Функция проверки существования email
 function checkEmailExists(email) {
     return users.find(user => user.email === email);
 }
 
-// 🔹 Функция регистрации нового пользователя
 function registerUser(email, password) {
     users.push({email: email, password: password});
 }
 
-// 🔹 Функция обновления шапки сайта
 function updateHeader() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     const headerOpen = document.querySelector('.header__open');
@@ -59,18 +53,15 @@ function updateHeader() {
     }
 }
 
-// 🔹 Функция поиска пользователя
 function findUser(email, password) {
     return users.find(u => u.email === email && u.password === password);
 }
 
-// 🔹 Функция входа пользователя
 function loginUser(email) {
     localStorage.setItem('loggedInUser', email);
     updateHeader();
 }
 
-// 🔹 Функция выхода пользователя
 function logoutUser() {
     localStorage.removeItem('loggedInUser');
     const headerOpen = document.querySelector('.header__open');
@@ -80,7 +71,6 @@ function logoutUser() {
     `;
 }
 
-// 🔹 Функция обработки регистрации
 function handleRegistration(event) {
     event.preventDefault();
     
@@ -106,7 +96,6 @@ function handleRegistration(event) {
     form.reset();
 }
 
-// 🔹 Функция обработки входа
 function handleLogin(event) {
     event.preventDefault();
     
@@ -125,6 +114,7 @@ function handleLogin(event) {
         alert("Неверный email или пароль!");
     }
 }
+
 function initializeApp() {
     updateHeader();
     
@@ -135,14 +125,8 @@ function initializeApp() {
         btn.onclick = closeModal;
     });
 }
-window.onload = initializeApp;
 
-
-
-
-
-// ============= СЛАЙДЕР БЕЗ ЗАДЕРЖЕК НА ТОЧКИ =============
-
+// ============= СЛАЙДЕР ИГР =============
 const gamesData = [
     { title: "Pubg", img: "https://axios-macro.com/images/gradient/avif/lite.avif", url: "https://axios-macro.com/pubg" },
     { title: "Apex", img: "https://axios-macro.com/images/gradient/avif/apex.avif", url: "https://axios-macro.com/apex" },
@@ -156,36 +140,35 @@ const gamesData = [
 const galery = document.getElementById('galery');
 const textGames = document.getElementById('text-games');
 const dotsContainer = document.getElementById('dots');
+
 const totalRealItems = gamesData.length;
 const itemsToShow = 4;
 let currentIndex = totalRealItems;
+let isTransitioning = false;
+let autoPlayInterval;
 
+// ============= ОСНОВНЫЕ ФУНКЦИИ СЛАЙДЕРА =============
 function createElements() {
     const displayItems = [...gamesData, ...gamesData, ...gamesData];
     
-    displayItems.forEach((game) => {
+    displayItems.forEach((game, index) => {
         const card = document.createElement('div');
         card.className = 'card-game';
+        card.setAttribute('data-original-index', index % totalRealItems);
         card.innerHTML = `<a href="${game.url}"><img src="${game.img}" alt="${game.title}"></a>`;
         galery.appendChild(card);
-        
+
         const btnItem = document.createElement('div');
         btnItem.className = 'text-game-item';
-        btnItem.innerHTML = `<a class="text-game" href="${game.url}">${game.title}</a>`;
+        btnItem.innerHTML = `<a class="text-game" href="${game.url}" data-index="${index % totalRealItems}">${game.title}</a>`;
         textGames.appendChild(btnItem);
     });
-    
-    // 7 точек - мгновенный клик
-    for (let i = 0; i < 7; i++) {
+
+    for (let i = 0; i < totalRealItems; i++) {
         const dot = document.createElement('span');
         dot.className = `dot ${i === 0 ? 'active' : ''}`;
         dot.setAttribute('data-index', i);
-        // БЕЗ ЗАДЕРЖЕК - кликаем сразу
-        dot.onclick = () => {
-            const targetIndex = i + totalRealItems;
-            currentIndex = targetIndex;
-            updateSlider();
-        };
+        dot.onclick = () => goToSlide(i + totalRealItems);
         dotsContainer.appendChild(dot);
     }
 }
@@ -198,7 +181,7 @@ function updateSlider(withTransition = true) {
         galery.classList.remove('transition');
         textGames.classList.remove('transition');
     }
-    
+
     const containerWidth = document.querySelector('.galery-wrapper').clientWidth;
     const gap = 20;
     const cardWidth = (containerWidth - (itemsToShow - 1) * gap) / itemsToShow;
@@ -207,43 +190,117 @@ function updateSlider(withTransition = true) {
     
     galery.style.transform = `translateX(${offset}px)`;
     textGames.style.transform = `translateX(${offset}px)`;
-    
-    // Обновляем активную точку
-    const realIndex = currentIndex % totalRealItems;
+
+    const activeDotIndex = currentIndex % totalRealItems;
     document.querySelectorAll('.dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === realIndex);
+        dot.classList.toggle('active', i === activeDotIndex);
     });
-    
-    // Бесконечная прокрутка без transitionend
-    setTimeout(() => {
-        if (currentIndex < totalRealItems) {
-            currentIndex += totalRealItems;
-            updateSlider(false);
-        }
-        if (currentIndex >= totalRealItems * 2) {
-            currentIndex -= totalRealItems;
-            updateSlider(false);
-        }
-    }, 500); // Через время анимации
 }
 
-let autoPlay = setInterval(() => {
-    currentIndex++;
+function handleTransitionEnd() {
+    isTransitioning = false;
+    if (currentIndex < totalRealItems) {
+        currentIndex += totalRealItems;
+        updateSlider(false);
+    }
+    if (currentIndex >= totalRealItems * 2) {
+        currentIndex -= totalRealItems;
+        updateSlider(false);
+    }
+}
+
+galery.addEventListener('transitionend', handleTransitionEnd);
+
+function goToSlide(index) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    currentIndex = index;
     updateSlider();
-}, 5000);
+}
 
-const container = document.querySelector('.games-slider-container');
-container.onmouseenter = () => clearInterval(autoPlay);
-container.onmouseleave = () => {
-    autoPlay = setInterval(() => {
-        currentIndex++;
-        updateSlider();
-    }, 5000);
-};
+function nextSlide() {
+    goToSlide(currentIndex + 1);
+}
 
-// Инициализация
-createElements();
-setTimeout(() => updateSlider(false), 50);
+function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayInterval = setInterval(nextSlide, 5000);
+}
 
-// Ресайз
-window.addEventListener('resize', () => updateSlider(false));
+function stopAutoPlay() {
+    if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+    }
+}
+
+// ============= ПОДСВЕТКА КАРТИНОК ПРИ НАВЕДЕНИИ =============
+function setupImageHighlight() {
+    const allImages = document.querySelectorAll('.card-game img');
+    const allTextButtons = document.querySelectorAll('.text-game');
+    
+    function resetAllImages() {
+        allImages.forEach(img => {
+            img.style.filter = '';
+            img.style.transform = '';
+        });
+    }
+    
+    // 1. Наведение на картинку
+    allImages.forEach(img => {
+        img.addEventListener('mouseenter', (e) => {
+            allImages.forEach(img => {
+                img.style.filter = 'grayscale(100%) brightness(0.5)';
+            });
+            e.target.style.filter = 'grayscale(0%) brightness(1)';
+            e.target.style.transform = 'scale(1.05)';
+        });
+        
+        img.addEventListener('mouseleave', resetAllImages);
+    });
+    
+    // 2. Наведение на текстовую кнопку - ПРОСТОЙ ВАРИАНТ
+    allTextButtons.forEach((button, index) => {
+        button.addEventListener('mouseenter', () => {
+            // Все картинки черно-белые
+            allImages.forEach(img => {
+                img.style.filter = 'grayscale(100%) brightness(0.5)';
+                img.style.transform = 'scale(1)';
+            });
+            
+            // Находим картинку с таким же индексом
+            // (они идут в том же порядке, что и кнопки)
+            if (allImages[index]) {
+                allImages[index].style.filter = 'grayscale(0%) brightness(1)';
+                allImages[index].style.transform = 'scale(1.05)';
+            }
+        });
+        
+        button.addEventListener('mouseleave', resetAllImages);
+    });
+}
+// ============= ИНИЦИАЛИЗАЦИЯ ВСЕГО ПРИЛОЖЕНИЯ =============
+function initializeAll() {
+    // Инициализация модальных окон и авторизации
+    initializeApp();
+    
+    // Инициализация слайдера
+    createElements();
+    setTimeout(() => updateSlider(false), 50);
+    
+    // Инициализация подсветки картинок
+    setupImageHighlight();
+    
+    // Автоплей слайдера
+    startAutoPlay();
+    
+    // Обработка ресайза
+    window.addEventListener('resize', () => updateSlider(false));
+    
+    // Остановка автоплея при наведении на слайдер
+    const container = document.querySelector('.games-slider-container');
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+}
+
+// Запуск при загрузке страницы
+window.onload = initializeAll;
