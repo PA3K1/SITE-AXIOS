@@ -125,7 +125,6 @@ function handleLogin(event) {
         alert("Неверный email или пароль!");
     }
 }
-
 function initializeApp() {
     updateHeader();
     
@@ -136,5 +135,112 @@ function initializeApp() {
         btn.onclick = closeModal;
     });
 }
-
 window.onload = initializeApp;
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card-game');
+    const texts = document.querySelectorAll('.text-games > div');
+    const dots = document.querySelectorAll('.dot');
+    const images = document.querySelectorAll('.card-game img');
+    const buttons = document.querySelectorAll('.text-game');
+    
+    let current = 0;
+    let timer;
+    
+    // Функция для получения правильного индекса с учетом бесконечности
+    function getCircularIndex(baseIndex, offset) {
+        let index = baseIndex + offset;
+        if (index >= 7) {
+            index = index % 7;
+        } else if (index < 0) {
+            index = (index % 7 + 7) % 7;
+        }
+        return index;
+    }
+    
+    // Основная функция показа слайдов
+    function showSlide(index) {
+        current = index;
+        
+        // 1. Скрыть ВСЕ картинки и кнопки
+        cards.forEach(c => c.style.display = 'none');
+        texts.forEach(t => t.style.display = 'none');
+        
+        // 2. Показать 4 картинки с учетом бесконечности
+        for (let i = 0; i < 4; i++) {
+            const cardIndex = getCircularIndex(index, i);
+            
+            // Показать картинку
+            if (cards[cardIndex]) {
+                cards[cardIndex].style.display = 'block';
+                cards[cardIndex].style.order = i; // Важно для правильного порядка
+            }
+            
+            // Показать кнопку
+            if (texts[cardIndex]) {
+                texts[cardIndex].style.display = 'block';
+            }
+        }
+        
+        // 3. Обновить точки
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === current);
+        });
+    }
+    
+    // Следующий слайд (бесконечный)
+    function nextSlide() {
+        let next = current + 1;
+        if (next >= 7) next = 0; // Возвращаемся к началу
+        showSlide(next);
+    }
+    
+    // Предыдущий слайд (если нужно)
+    function prevSlide() {
+        let prev = current - 1;
+        if (prev < 0) prev = 6; // Переходим к последнему
+        showSlide(prev);
+    }
+    
+    // Обработчики для точек
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', function() {
+            clearInterval(timer);
+            showSlide(i);
+            timer = setInterval(nextSlide, 6000);
+        });
+    });
+    
+    
+    // Автопрокрутка
+    function startAutoSlide() {
+        timer = setInterval(nextSlide, 19000);
+    }
+    
+    // Остановка при наведении
+    const container = document.querySelector('.games-slider-container');
+    if (container) {
+        container.addEventListener('mouseenter', () => clearInterval(timer));
+        container.addEventListener('mouseleave', startAutoSlide);
+    }
+    
+    // Добавим немного CSS для плавности
+    const style = document.createElement('style');
+    style.textContent = `
+        .galery {
+            transition: transform 0.5s ease-in-out;
+        }
+        .card-game {
+            transition: opacity 0.5s ease;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Запуск
+    showSlide(0);
+    startAutoSlide();
+    
+    
+});
