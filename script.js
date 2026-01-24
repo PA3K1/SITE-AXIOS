@@ -252,7 +252,6 @@ function setupImageHighlight() {
                 img.style.filter = 'grayscale(100%) brightness(0.5)';
             });
             e.target.style.filter = 'grayscale(0%) brightness(1)';
-            e.target.style.transform = 'scale(1.05)';
         });
         
         img.addEventListener('mouseleave', resetAllImages);
@@ -271,7 +270,6 @@ function setupImageHighlight() {
             // (они идут в том же порядке, что и кнопки)
             if (allImages[index]) {
                 allImages[index].style.filter = 'grayscale(0%) brightness(1)';
-                allImages[index].style.transform = 'scale(1.05)';
             }
         });
         

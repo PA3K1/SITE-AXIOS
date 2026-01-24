@@ -314,6 +314,9 @@ body {
     line-height: 1.4;
 }
 
+
+
+
 .big-text {
     text-align: center;
     padding: 35px 0 40px;
@@ -351,10 +354,10 @@ body {
 
 .card-game img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
     border-radius: 20px;
-    transition: filter 0.3s ease, transform 0.3s ease;
+    display: block;
+    cursor: pointer;
+    transition: filter 0.2s ease-in-out; /* Плавный переход для фильтра */
     display: block;
     cursor: pointer;
 }
@@ -408,10 +411,11 @@ body {
 }
 
 .dot {
-    width: 10px;
+    width: 22px;
     height: 10px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.199);
+    background-color: #15171D;
     cursor: pointer;
     transition: all 0.4s ease;
 }
@@ -419,7 +423,6 @@ body {
 .dot.active {
     background-color: #7775D1;
     transform: scale(1.3);
-    box-shadow: 0 0 10px #7775D1;
 }
 
 .galery.transition, .text-games.transition {
