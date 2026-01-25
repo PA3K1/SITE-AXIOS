@@ -126,7 +126,15 @@ function initializeApp() {
     });
 }
 
+
+
+
+
+
+
 // ============= СЛАЙДЕР ИГР =============
+
+// Массив данных об играх, содержащий название, URL картинки и ссылку
 const gamesData = [
     { title: "Pubg", img: "https://axios-macro.com/images/gradient/avif/lite.avif", url: "https://axios-macro.com/pubg" },
     { title: "Apex", img: "https://axios-macro.com/images/gradient/avif/apex.avif", url: "https://axios-macro.com/apex" },
@@ -137,43 +145,57 @@ const gamesData = [
     { title: "R6 Siege", img: "https://axios-macro.com/images/gradient/avif/r6.avif", url: "https://axios-macro.com/r6siege" }
 ];
 
-const galery = document.getElementById('galery');
-const textGames = document.getElementById('text-games');
-const dotsContainer = document.getElementById('dots');
+// Получаем DOM-элементы слайдера
+const galery = document.getElementById('galery'); // Контейнер для изображений игр
+const textGames = document.getElementById('text-games'); // Контейнер для текстовых кнопок
+const dotsContainer = document.getElementById('dots'); // Контейнер для точек-индикаторов
 
-const totalRealItems = gamesData.length;
-const itemsToShow = 4;
-let currentIndex = totalRealItems;
-let isTransitioning = false;
-let autoPlayInterval;
+// Настройки слайдера
+const totalRealItems = gamesData.length; // Количество реальных элементов (7)
+const itemsToShow = 4; // Сколько элементов показывать одновременно
+let currentIndex = totalRealItems; // Текущий индекс (стартуем с середины для бесконечного эффекта)
+let isTransitioning = false; // Флаг анимации (чтобы не было конфликтов при быстрых кликах)
+let autoPlayInterval; // Интервал для автопрокрутки
 
 // ============= ОСНОВНЫЕ ФУНКЦИИ СЛАЙДЕРА =============
+
+// Функция создания всех элементов слайдера (картинки, кнопки, точки)
 function createElements() {
+    // Создаем 3 копии массива для эффекта бесконечного скролла
     const displayItems = [...gamesData, ...gamesData, ...gamesData];
     
+    // Создаем карточки с изображениями игр
     displayItems.forEach((game, index) => {
+        // Создаем div для карточки игры
         const card = document.createElement('div');
-        card.className = 'card-game';
+        card.className = 'card-game'; // Добавляем CSS-класс
+        // Сохраняем оригинальный индекс (0-6) для связи с кнопками
         card.setAttribute('data-original-index', index % totalRealItems);
+        // Вставляем изображение с ссылкой
         card.innerHTML = `<a href="${game.url}"><img src="${game.img}" alt="${game.title}"></a>`;
-        galery.appendChild(card);
+        galery.appendChild(card); // Добавляем в контейнер
 
+        // Создаем текстовую кнопку для игры
         const btnItem = document.createElement('div');
-        btnItem.className = 'text-game-item';
+        btnItem.className = 'text-game-item'; // CSS-класс
+        // Кнопка с текстом названия игры
         btnItem.innerHTML = `<a class="text-game" href="${game.url}" data-index="${index % totalRealItems}">${game.title}</a>`;
-        textGames.appendChild(btnItem);
+        textGames.appendChild(btnItem); // Добавляем в контейнер
     });
 
+    // Создаем точки-индикаторы (по количеству реальных игр)
     for (let i = 0; i < totalRealItems; i++) {
         const dot = document.createElement('span');
-        dot.className = `dot ${i === 0 ? 'active' : ''}`;
-        dot.setAttribute('data-index', i);
-        dot.onclick = () => goToSlide(i + totalRealItems);
-        dotsContainer.appendChild(dot);
+        dot.className = `dot ${i === 0 ? 'active' : ''}`; // Первая точка активна
+        dot.setAttribute('data-index', i); // Сохраняем индекс
+        dot.onclick = () => goToSlide(i + totalRealItems); // Обработчик клика
+        dotsContainer.appendChild(dot); // Добавляем в контейнер
     }
 }
 
+// Функция обновления позиции слайдера
 function updateSlider(withTransition = true) {
+    // Включаем или выключаем CSS-переходы
     if (withTransition) {
         galery.classList.add('transition');
         textGames.classList.add('transition');
@@ -182,108 +204,125 @@ function updateSlider(withTransition = true) {
         textGames.classList.remove('transition');
     }
 
+    // Рассчитываем ширину контейнера
     const containerWidth = document.querySelector('.galery-wrapper').clientWidth;
-    const gap = 20;
+    const gap = 20; // Расстояние между элементами
+    // Рассчитываем ширину одной карточки
     const cardWidth = (containerWidth - (itemsToShow - 1) * gap) / itemsToShow;
-    const step = cardWidth + gap;
-    const offset = -currentIndex * step;
+    const step = cardWidth + gap; // Шаг смещения (ширина карточки + отступ)
+    const offset = -currentIndex * step; // Общее смещение
     
+    // Применяем смещение к слайдерам изображений и текстов
     galery.style.transform = `translateX(${offset}px)`;
     textGames.style.transform = `translateX(${offset}px)`;
 
-    const activeDotIndex = currentIndex % totalRealItems;
+    // Обновляем активную точку-индикатор
+    const activeDotIndex = currentIndex % totalRealItems; // Индекс от 0 до 6
     document.querySelectorAll('.dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === activeDotIndex);
+        dot.classList.toggle('active', i === activeDotIndex); // Делаем активной нужную точку
     });
 }
 
+// Обработчик завершения CSS-перехода
 function handleTransitionEnd() {
-    isTransitioning = false;
+    isTransitioning = false; // Сбрасываем флаг анимации
+    
+    // Если вышли за левую границу (перешли в начало)
     if (currentIndex < totalRealItems) {
-        currentIndex += totalRealItems;
-        updateSlider(false);
+        currentIndex += totalRealItems; // Перемещаемся в середину
+        updateSlider(false); // Обновляем без анимации
     }
+    // Если вышли за правую границу (перешли в конец)
     if (currentIndex >= totalRealItems * 2) {
-        currentIndex -= totalRealItems;
-        updateSlider(false);
+        currentIndex -= totalRealItems; // Перемещаемся в середину
+        updateSlider(false); // Обновляем без анимации
     }
 }
 
+// Вешаем обработчик на завершение CSS-перехода
 galery.addEventListener('transitionend', handleTransitionEnd);
 
+// Функция перехода к конкретному слайду
 function goToSlide(index) {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    currentIndex = index;
-    updateSlider();
+    if (isTransitioning) return; // Если уже идет анимация - выходим
+    isTransitioning = true; // Устанавливаем флаг анимации
+    currentIndex = index; // Обновляем текущий индекс
+    updateSlider(); // Запускаем обновление с анимацией
 }
 
+// Функция перехода к следующему слайду
 function nextSlide() {
     goToSlide(currentIndex + 1);
 }
 
+// Функция запуска автопрокрутки
 function startAutoPlay() {
-    stopAutoPlay();
-    autoPlayInterval = setInterval(nextSlide, 5000);
+    stopAutoPlay(); // Сначала останавливаем предыдущий интервал
+    autoPlayInterval = setInterval(nextSlide, 5000); // Запускаем с интервалом 5 сек
 }
 
+// Функция остановки автопрокрутки
 function stopAutoPlay() {
     if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
+        clearInterval(autoPlayInterval); // Очищаем интервал
     }
 }
 
-// ============= ПОДСВЕТКА КАРТИНОК ПРИ НАВЕДЕНИИ =============
+// Функция настройки подсветки картинок при наведении
 function setupImageHighlight() {
-    const allImages = document.querySelectorAll('.card-game img');
-    const allTextButtons = document.querySelectorAll('.text-game');
+    const allImages = document.querySelectorAll('.card-game img'); // Все изображения
+    const allTextButtons = document.querySelectorAll('.text-game'); // Все текстовые кнопки
     
+    // Функция сброса всех эффектов подсветки
     function resetAllImages() {
         allImages.forEach(img => {
-            img.style.filter = '';
-            img.style.transform = '';
+            img.style.filter = ''; // Сбрасываем фильтры
+            img.style.transform = ''; // Сбрасываем трансформации
         });
     }
     
-    // 1. Наведение на картинку
+    // 1. Наведение на саму картинку
     allImages.forEach(img => {
         img.addEventListener('mouseenter', (e) => {
+            // Все картинки делаем черно-белыми
             allImages.forEach(img => {
-                img.style.filter = 'grayscale(100%) brightness(0.5)';
+                img.style.filter = 'grayscale() brightness(100%)';
             });
+            // Текущую картинку оставляем цветной
             e.target.style.filter = 'grayscale(0%) brightness(1)';
         });
         
-        img.addEventListener('mouseleave', resetAllImages);
+        img.addEventListener('mouseleave', resetAllImages); // При уходе сбрасываем
     });
     
-    // 2. Наведение на текстовую кнопку - ПРОСТОЙ ВАРИАНТ
+    // 2. Наведение на текстовую кнопку
     allTextButtons.forEach((button, index) => {
         button.addEventListener('mouseenter', () => {
-            // Все картинки черно-белые
+            // Все картинки делаем черно-белыми
             allImages.forEach(img => {
-                img.style.filter = 'grayscale(100%) brightness(0.5)';
+                img.style.filter = 'grayscale() brightness(100%)';
                 img.style.transform = 'scale(1)';
             });
             
-            // Находим картинку с таким же индексом
-            // (они идут в том же порядке, что и кнопки)
+            // Находим соответствующую картинку по индексу
             if (allImages[index]) {
                 allImages[index].style.filter = 'grayscale(0%) brightness(1)';
             }
         });
         
-        button.addEventListener('mouseleave', resetAllImages);
+        button.addEventListener('mouseleave', resetAllImages); // При уходе сбрасываем
     });
 }
+
 // ============= ИНИЦИАЛИЗАЦИЯ ВСЕГО ПРИЛОЖЕНИЯ =============
+
+// Главная функция инициализации всего приложения
 function initializeAll() {
-    // Инициализация модальных окон и авторизации
     initializeApp();
     
     // Инициализация слайдера
-    createElements();
-    setTimeout(() => updateSlider(false), 50);
+    createElements(); // Создаем элементы
+    setTimeout(() => updateSlider(false), 50); // Обновляем позицию после небольшой задержки
     
     // Инициализация подсветки картинок
     setupImageHighlight();
@@ -291,14 +330,14 @@ function initializeAll() {
     // Автоплей слайдера
     startAutoPlay();
     
-    // Обработка ресайза
-    window.addEventListener('resize', () => updateSlider(false));
+    // Обработка изменения размера окна
+    window.addEventListener('resize', () => updateSlider(false)); // Без анимации
     
     // Остановка автоплея при наведении на слайдер
     const container = document.querySelector('.games-slider-container');
-    container.addEventListener('mouseenter', stopAutoPlay);
-    container.addEventListener('mouseleave', startAutoPlay);
+    container.addEventListener('mouseenter', stopAutoPlay); // Останавливаем при наведении
+    container.addEventListener('mouseleave', startAutoPlay); // Возобновляем при уходе
 }
 
-// Запуск при загрузке страницы
+// Запуск при полной загрузке страницы
 window.onload = initializeAll;
