@@ -1,0 +1,62 @@
+
+
+
+.image_focus {
+    box-sizing: border-box; /* ← ВАЖНО! */
+    border-radius: 9px;
+    margin-left: 20px;
+    border: 3px solid transparent; /* Прозрачный бордер по умолчанию */
+
+}
+
+.modal, .modal_windoy {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7); /* Полупрозрачный чёрный фон */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__content {
+    border: 2px solid #7775D1;
+    background: #1a1a20;
+    border-radius: 15px;
+    padding: 20px;;
+    position: relative;
+}
+
+.focus-modal-text {
+    font-size: 22px;
+    font-weight: 600;
+    padding:  0 0 0 20px;
+}
+
+.modal-focus-link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.modal-focus-link-container {
+    display: flex;
+    justify-content: center;
+    background-color: #7775D1;
+    width: 360px;
+    height: 55px;
+    border-radius: 26px;
+    margin-top: 80px;
+}
+
+.image_focus.selected {
+    border: 3px solid #7775D1 !important;
+    filter: brightness(0.9) !important;
+}

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/modal-1.css">
     <link rel="stylesheet" href="/css/modal-2.css">
+    <link rel="stylesheet" href="/css/modal-3.css">
     
 </head>
 <body>
@@ -157,7 +158,7 @@
     </div>
         <p class="price_subtitle-text">0 ₽</p>
         <p class="days">90 ДЕНЬ</p>
-        <p class="sale-product">ПОПРОБОВАТЬ</p>
+        <p class="sale-product" onclick=openBodal(event)>ПОПРОБОВАТЬ</p>
         
     </div>
     <div class="text-card">
@@ -166,11 +167,11 @@
         <p class="mini-sub-text"><svg width="20" height="20"><circle/>
         </svg>Доступ ко всем играм
         </p>
-        
+        onclick="openBodal(event)"
     </div>
         <p class="price_subtitle-text">333 ₽</p>
         <p class="days">90 ДЕНЬ</p>
-        <p class="sale-product">ПОПРОБОВАТЬ</p>
+        <p class="sale-product" onclick="openSodal(event)">АКТИВИРОВАТЬ</p>
         
     </div>
     <div class="text-card">
@@ -183,7 +184,7 @@
     </div>
         <p class="price_subtitle-text">555 ₽</p>
         <p class="days">90 ДЕНЬ</p>
-        <p class="sale-product">ПОПРОБОВАТЬ</p>
+        <p class="sale-product" onclick="openSodal(event)">АКТИВИРОВАТЬ</p>
     </div>
 </div>
 <div class="container-cards">
@@ -197,7 +198,7 @@
     </div>
         <p class="price_subtitle-text">0 ₽</p>
         <p class="days">90 ДЕНЬ</p>
-        <p class="sale-product">ПОПРОБОВАТЬ</p>
+        <p class="sale-product" onclick="openSodal(event)">АКТИВИРОВАТЬ</p>
         
     </div>
     <div class="text-card">
@@ -210,7 +211,7 @@
     </div>
         <p class="price_subtitle-text">333 ₽</p>
         <p class="days">90 ДЕНЬ</p>
-        <p class="sale-product">ПОПРОБОВАТЬ</p>
+        <p class="sale-product" onclick="openSodal(event)">АКТИВИРОВАТЬ</p>
         
     </div>
     <div class="text-card">
@@ -223,11 +224,19 @@
     </div>
         <p class="price_subtitle-text">555 ₽</p>
         <p class="days">90 ДЕНЬ</p>
-        <p class="sale-product">ПОПРОБОВАТЬ</p>
+        <p class="sale-product" onclick="openSodal(event)">АКТИВИРОВАТЬ</p>
     </div>
 </div>
 
-
+    <div class="modal modal--auto">  <!-- Добавь класс modal -->
+    <div class="modal__content">  <!-- Добавь обёртку для контента -->
+        <p class="focus-modal-text">ВЫБЕРИТЕ СПОСОБ</p>
+        <img class="image_focus" height="90px" src="img/MASTER_CARD.jpg" alt="">
+        <div class="modal-focus-link-container">
+        <a class="modal-focus-link disabled" href="https://oplata.info/asp2/pay_cl.asp?id_d=3163926&id_po=0&cart_uid=&ai=&curr=ATM&lang=ru-RU&digiuid=BCC75153-E222-40C5-A16C-5390328619F8&_ow=&_ids_shop=&failpage=https%3A%2F%2Foplata%2Einfo%2Fasp2%2Fpay_wm%2Easp%3Fid_d%3D3163926%26lang%3Dru-RU%26digiuid%3DBCC75153-E222-40C5-A16C-5390328619F8&item_cnt=&promocode=">ПРОДОЛЖИТЬ</a>
+    </div>
+    </div>
+</div>
 
 
 <script src="script.js"></script>

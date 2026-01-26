@@ -15,11 +15,61 @@ function openBodal(e) {
     setTimeout(() => modal.style.opacity = '1', 10);
 }
 
+function openSodal(e) {
+    e.preventDefault();
+    const modal = document.querySelector('.modal--auto');
+    modal.style.opacity = '0';
+    modal.style.display = 'block';
+    setTimeout(() => modal.style.opacity = '1', 10);
+}
+
+
 function closeModal() {
     const activeModal = document.querySelector('.modal[style*="display: block"]');
     if (activeModal) {
         activeModal.style.opacity = '0';
         setTimeout(() => activeModal.style.display = 'none', 300);
+    }
+}
+
+function setupMasterCardSelection() {
+    const masterCardImage = document.querySelector('.image_focus');
+    
+    if (masterCardImage) {
+        masterCardImage.addEventListener('click', function() {
+            // Добавляем/убираем класс selected при клике
+            this.classList.toggle('selected');
+        });
+    }
+}
+
+function setupMasterCardSelection() {
+    const masterCardImage = document.querySelector('.image_focus');
+    const continueButton = document.querySelector('.modal-focus-link');
+    
+    if (masterCardImage && continueButton) {
+        masterCardImage.addEventListener('click', function() {
+            // Переключаем selected у картинки
+            const isSelected = this.classList.toggle('selected');
+            
+            // Если картинка выбрана - активируем кнопку
+            if (isSelected) {
+                continueButton.classList.remove('disabled');
+                continueButton.style.cursor = 'pointer';
+            } else {
+                continueButton.classList.add('disabled');
+                continueButton.style.cursor = 'not-allowed';
+            }
+        });
+        
+        // При клике на кнопку проверяем
+        continueButton.addEventListener('click', function(e) {
+            if (this.classList.contains('disabled')) {
+                e.preventDefault(); // Не даём перейти
+                alert('Сначала выберите способ оплаты!');
+            }
+            // Если не disabled - переход сработает нормально
+        });
     }
 }
 
@@ -126,7 +176,17 @@ function initializeApp() {
     });
 }
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработчик для всех модальных окон
+    document.querySelectorAll('.modal, .modal_windoy').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            // Если кликнули на сам оверлей (фон), а не на его содержимое
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    });
+});
 
 
 
@@ -327,6 +387,7 @@ function initializeAll() {
     // Инициализация подсветки картинок
     setupImageHighlight();
     
+    setupMasterCardSelection();
     // Автоплей слайдера
     startAutoPlay();
     
