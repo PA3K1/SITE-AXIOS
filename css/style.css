@@ -854,3 +854,44 @@ button:focus {
     border: 3px solid #7775D1 !important;
     filter: brightness(0.9) !important;
 }
+
+.user-info{  
+    max-width: 1000px;
+    border-bottom: 2px solid #15171D;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.coments-section{
+    background-color: #1A1D26;
+    position: relative;
+    min-height: 113px;
+    margin-bottom: 18px;
+    border-radius: 15px;
+}
+
+.line-bar{
+    width: 13px;
+    position: absolute;
+    border-radius: 15px 0 0 15px;
+    left: 0;
+    top: 0;
+    background-color: #7775D1;
+    height: 100%;
+}
+
+.coments-text{
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+    padding: 5px;
+}
+
+.container-coments {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
