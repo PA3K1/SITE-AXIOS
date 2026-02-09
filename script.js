@@ -259,7 +259,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+const showBtn = document.getElementById('showMoreBtn');
 
+showBtn.addEventListener('click', function() {
+    // Каждый раз ищем СВЕЖИЙ список скрытых комментариев
+    const hiddenComments = document.querySelectorAll('.coments-section.hidden');
+    
+    // Берём первые 3 из ТЕКУЩИХ скрытых
+    for (let i = 0; i < 3 && i < hiddenComments.length; i++) {
+        hiddenComments[i].classList.remove('hidden');
+    }
+    
+    // Проверяем сколько осталось скрытых
+    const remaining = document.querySelectorAll('.coments-section.hidden');
+    if (remaining.length === 0) {
+        showBtn.style.display = 'none';
+    }
+});
 
 
 // ============= СЛАЙДЕР ИГР =============

@@ -858,8 +858,7 @@ button:focus {
 .coments-section {
     background-color: #1A1D26;
     position: relative;
-    /* УБИРАЕМ min-height: 200px; */
-    margin: 18px 300px;
+    margin: 1px 300px;
     border-radius: 15px;
     padding: 25px 30px 25px 40px; /* Добавляем отступы внутри */
     /* Автоматическая высота по содержимому */
@@ -910,3 +909,43 @@ button:focus {
 }
 
 
+/* Главное - скрыть комментарии */
+.coments-section.hidden {
+    display: none !important;
+}
+
+/* Кнопка */
+.show-more-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.show-more-btn {
+    background: none;
+    border: none;
+    color: #7775D1;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    text-decoration: underline;
+}
+
+.show-more-btn:hover {
+    color: #fff;
+}
+
+.button-coments{
+    max-width: 490px;
+    background-color: #1A1D26;
+    padding: 3px 30px;
+    margin: auto;
+    border-radius: 50px;
+    border: none;
+}
+
+.button__text{
+    color: #54575C;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
