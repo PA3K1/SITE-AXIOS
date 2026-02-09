@@ -15,6 +15,9 @@ function openBodal(e) {
     setTimeout(() => modal.style.opacity = '1', 10);
 }
 
+
+
+
 function openSodal(e) {
     e.preventDefault();
     const modal = document.querySelector('.modal--auto');
@@ -134,6 +137,11 @@ const videoUrls = {
     });
 }
 
+
+// Функция для прокрутки к тарифам
+function scrollToPrices() {
+    document.getElementById('prices')?.scrollIntoView();
+}
 
 // ============= ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ =============
 let users = [
@@ -466,3 +474,4 @@ function initializeAll() {
 
 // Запуск при полной загрузке страницы
 window.onload = initializeAll;
+
