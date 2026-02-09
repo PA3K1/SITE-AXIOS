@@ -350,7 +350,7 @@ body {
     border-radius: 20px;
     display: block;
     cursor: pointer;
-    transition: filter 0.2s ease-in-out; /* Плавный переход для фильтра */
+    transition: filter 0.2s ease-in-out; 
     display: block;
     cursor: pointer;
 }
@@ -437,7 +437,7 @@ body {
     height: 380px;
     margin: 40px;
     border-radius: 20px;
-    position: relative; /* Для позиционирования кнопки внутри */
+    position: relative; 
 }
 
 .container-cards{
@@ -605,7 +605,7 @@ body {
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
-     z-index: 1000; /* ← И эту тоже (можно не обязательно) */
+    z-index: 1000; 
 }
 
 .modal__content {
@@ -618,7 +618,7 @@ body {
     width: 90%;
     max-width: 400px;
     min-height: 370px;
-     z-index: 1001; /* ← И эту тоже (можно не обязательно) */
+    z-index: 1001;
 }
 
 .modal__cont-1{
@@ -786,13 +786,11 @@ button:focus {
 }
 
 
-
-
 .image_focus {
-    box-sizing: border-box; /* ← ВАЖНО! */
+    box-sizing: border-box; 
     border-radius: 9px;
     margin-left: 20px;
-    border: 3px solid transparent; /* Прозрачный бордер по умолчанию */
+    border: 3px solid transparent; 
 
 }
 
@@ -803,7 +801,7 @@ button:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7); /* Полупрозрачный чёрный фон */
+    background: rgba(0,0,0,0.7);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -820,7 +818,7 @@ button:focus {
     transform: translate(-50%, -50%);
     max-width: 400px;
     min-height: 370px;
-     z-index: 1001; /* ← И эту тоже (можно не обязательно) */ 
+    z-index: 1001; 
     position: absolute;
 }
 
@@ -855,72 +853,73 @@ button:focus {
     filter: brightness(0.9) !important;
 }
 
-.coments-section {
+
+/* СТИЛИ ДЛЯ КОМЕНТАРИЕВ */
+.comments {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 25px;
+}
+
+.comments__item {
     background-color: #1A1D26;
     position: relative;
     margin: 1px 300px;
     border-radius: 15px;
-    padding: 25px 30px 25px 40px; /* Добавляем отступы внутри */
-    /* Автоматическая высота по содержимому */
+    padding: 10px 30px 25px 40px;
 }
 
-.line-bar {
+.comments__item--hidden {
+    display: none !important;
+}
+
+.comments__sidebar {
     width: 13px;
     position: absolute;
     border-radius: 15px 0 0 15px;
     left: 0;
     top: 0;
     background-color: #7775D1;
-    height: 100%; /* Будет растягиваться на всю высоту контейнера */
+    height: 100%;
 }
 
-.coments-text {
+.comments__header {
+    max-width: 100%;
+    border-bottom: 2px solid #15171D;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.comments__username {
+    color: #c4c4c47e;
+    font-size: 16px;
+}
+
+.comments__date {
+    color: #c4c4c47e;
+    font-size: 16px;
+}
+
+.comments__text {
     display: flex;
     justify-content: center;
     font-size: 19px;
     padding: 5px;
-    /* Добавляем отступы текста */
     margin: 15px 0 0 0;
-    line-height: 1.6; /* Улучшаем читаемость */
-    text-align: left; /* Выравниваем по левому краю */
+    line-height: 1.6;
+    text-align: left;
 }
 
-.container-coments {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-    gap: 25px; /* Отступ между комментариями */
-}
-
-.user-info {  
-    max-width: 100%;
-    border-bottom: 2px solid #15171D;
-    margin: 0; /* Убираем auto */
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 15px; /* Отступ снизу перед текстом */
-}
-
-.user-names {
-    color: #c4c4c47e;
-    padding: 8px 0;
-    font-size: 16px;
-}
-
-
-/* Главное - скрыть комментарии */
-.coments-section.hidden {
-    display: none !important;
-}
-
-/* Кнопка */
-.show-more-container {
+.comments__more {
     text-align: center;
     margin: 40px 0;
 }
 
-.show-more-btn {
+.comments__button {
     background: none;
     border: none;
     color: #7775D1;
@@ -930,20 +929,20 @@ button:focus {
     text-decoration: underline;
 }
 
-.show-more-btn:hover {
+.comments__button:hover {
     color: #fff;
 }
 
-.button-coments{
+.comments__auth-message {
     max-width: 490px;
     background-color: #1A1D26;
-    padding: 3px 30px;
+    padding: 3px 50px;
     margin: auto;
     border-radius: 50px;
     border: none;
 }
 
-.button__text{
+.comments__auth-text {
     color: #54575C;
     font-size: 18px;
     font-weight: 600;

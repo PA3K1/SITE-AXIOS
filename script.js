@@ -15,9 +15,6 @@ function openBodal(e) {
     setTimeout(() => modal.style.opacity = '1', 10);
 }
 
-
-
-
 function openSodal(e) {
     e.preventDefault();
     const modal = document.querySelector('.modal--auto');
@@ -25,7 +22,6 @@ function openSodal(e) {
     modal.style.display = 'block';
     setTimeout(() => modal.style.opacity = '1', 10);
 }
-
 
 function closeModal() {
     const activeModal = document.querySelector('.modal[style*="display: block"]');
@@ -75,8 +71,6 @@ function setupMasterCardSelection() {
         });
     }
 }
-
-
 
 
 // ============= ПЕРЕКЛЮЧАТЕЛЬ КАРТИНОК =============
@@ -259,21 +253,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const showBtn = document.getElementById('showMoreBtn');
+const showBtn = document.getElementById('commentsShowMore');
 
 showBtn.addEventListener('click', function() {
-    // Каждый раз ищем СВЕЖИЙ список скрытых комментариев
-    const hiddenComments = document.querySelectorAll('.coments-section.hidden');
+    // Ищем скрытые элементы по БЭМ классу
+    const hiddenItems = document.querySelectorAll('.comments__item--hidden');
     
-    // Берём первые 3 из ТЕКУЩИХ скрытых
-    for (let i = 0; i < 3 && i < hiddenComments.length; i++) {
-        hiddenComments[i].classList.remove('hidden');
+    // Показываем первые 3
+    for (let i = 0; i < 3 && i < hiddenItems.length; i++) {
+        hiddenItems[i].classList.remove('comments__item--hidden');
+        hiddenItems[i].classList.add('comments__item--visible');
     }
     
-    // Проверяем сколько осталось скрытых
-    const remaining = document.querySelectorAll('.coments-section.hidden');
+    // Если скрытых не осталось - скрываем кнопку
+    const remaining = document.querySelectorAll('.comments__item--hidden');
     if (remaining.length === 0) {
-        showBtn.style.display = 'none';
+        this.style.display = 'none';
     }
 });
 
