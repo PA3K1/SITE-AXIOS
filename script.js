@@ -33,25 +33,12 @@ function closeModal() {
 
 function setupMasterCardSelection() {
     const masterCardImage = document.querySelector('.image_focus');
-    
-    if (masterCardImage) {
-        masterCardImage.addEventListener('click', function() {
-            // Добавляем/убираем класс selected при клике
-            this.classList.toggle('selected');
-        });
-    }
-}
-
-function setupMasterCardSelection() {
-    const masterCardImage = document.querySelector('.image_focus');
     const continueButton = document.querySelector('.modal-focus-link');
     
     if (masterCardImage && continueButton) {
         masterCardImage.addEventListener('click', function() {
-            // Переключаем selected у картинки
             const isSelected = this.classList.toggle('selected');
             
-            // Если картинка выбрана - активируем кнопку
             if (isSelected) {
                 continueButton.classList.remove('disabled');
                 continueButton.style.cursor = 'pointer';
@@ -61,76 +48,50 @@ function setupMasterCardSelection() {
             }
         });
         
-        // При клике на кнопку проверяем
         continueButton.addEventListener('click', function(e) {
             if (this.classList.contains('disabled')) {
-                e.preventDefault(); // Не даём перейти
+                e.preventDefault();
                 alert('Сначала выберите способ оплаты!');
             }
-            // Если не disabled - переход сработает нормально
         });
     }
 }
 
-
 // ============= ПЕРЕКЛЮЧАТЕЛЬ КАРТИНОК =============
-
 function setupVideoButtons() {
     const videoButtons = document.querySelectorAll('.mini-text');
     const videoFrame = document.getElementById('ax-mini');
     const videoContainer = document.querySelector('.container-mini-video');
     
-const videoUrls = {
-    'rainbow-six': 'https://www.youtube.com/embed/HqpjPnctPtY',
-    'rust': 'https://www.youtube.com/embed/ex1F_FYusYI',
-    'pubg': 'https://www.youtube.com/embed/SghEK_6I0w0',
-    'apex': 'https://www.youtube.com/embed/6hVBI7ZZe5s',
-    'csgo': 'https://www.youtube.com/embed/-UNCF6lNNb8'
-};
+    const videoUrls = {
+        'rainbow-six': 'https://www.youtube.com/embed/HqpjPnctPtY',
+        'rust': 'https://www.youtube.com/embed/ex1F_FYusYI',
+        'pubg': 'https://www.youtube.com/embed/SghEK_6I0w0',
+        'apex': 'https://www.youtube.com/embed/6hVBI7ZZe5s',
+        'csgo': 'https://www.youtube.com/embed/-UNCF6lNNb8'
+    };
     
-    // Первая кнопка активна по умолчанию
-    videoButtons[0].classList.add('active');
-    
-    videoButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Если уже активна - ничего не делаем
-            if (this.classList.contains('active')) return;
-            
-            // 1. Добавляем эффект нажатия на текущую активную кнопку
-            const currentActive = document.querySelector('.mini-text.active');
-            if (currentActive) {
-                currentActive.classList.add('switching');
-            }
-            
-            // 2. Плавно скрываем видео
-            videoContainer.style.opacity = '0.9';
-            
-            // 3. Через 200ms меняем всё
-            setTimeout(() => {
-                // Убираем классы у всех кнопок
+    if (videoButtons.length > 0) {
+        videoButtons[0].classList.add('active');
+        
+        videoButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('active')) return;
+                
                 videoButtons.forEach(btn => {
                     btn.classList.remove('active', 'switching');
                 });
                 
-                // Добавляем active к нажатой
                 this.classList.add('active');
                 
-                // Меняем видео
                 const videoKey = this.getAttribute('data-video');
                 if (videoUrls[videoKey]) {
                     videoFrame.src = videoUrls[videoKey];
                 }
-                
-                // Плавно показываем новое видео
-                setTimeout(() => {
-                    videoContainer.style.opacity = '1';
-                }, 50);
-                
-            }, 200); // Совпадает с временем opacity transition
+            });
         });
-    });
+    }
 }
-
 
 // Функция для прокрутки к тарифам
 function scrollToPrices() {
@@ -159,27 +120,30 @@ function updateHeader() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     const headerOpen = document.querySelector('.header__open');
     const authMessage = document.getElementById('authMessage');
-    const commentForm = document.getElementById('commentForm');  
+    const commentForm = document.getElementById('commentForm');
+    const commentButton = document.getElementById('commentButton');
 
     if (loggedInUser) {
+        // Пользователь вошел
         headerOpen.innerHTML = `
             <span>${loggedInUser}</span>
             <a class="header__link open__modal" onclick="logoutUser()" href="#">ВЫХОД</a>
         `;
-        
 
         if (authMessage) authMessage.style.display = 'none';
         if (commentForm) commentForm.style.display = 'block';
+        if (commentButton) commentButton.style.display = 'block';
 
-        
     } else {
+        // Пользователь не вошел
         headerOpen.innerHTML = `
             <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
             <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
         `;
-        
+
         if (authMessage) authMessage.style.display = 'block';
         if (commentForm) commentForm.style.display = 'none';
+        if (commentButton) commentButton.style.display = 'none';
     }
 }
 
@@ -190,15 +154,14 @@ function findUser(email, password) {
 function loginUser(email) {
     localStorage.setItem('loggedInUser', email);
     updateHeader();
+    closeModal();
+    alert("Успешный вход!");
 }
 
 function logoutUser() {
     localStorage.removeItem('loggedInUser');
-    const headerOpen = document.querySelector('.header__open');
-    headerOpen.innerHTML = `
-        <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
-        <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
-    `;
+    updateHeader();
+    alert("Вы вышли из аккаунта!");
 }
 
 function handleRegistration(event) {
@@ -237,9 +200,7 @@ function handleLogin(event) {
     
     if (user) {
         loginUser(email);
-        closeModal();
         form.reset();
-        alert("Успешный вход!");
     } else {
         alert("Неверный email или пароль!");
     }
@@ -256,11 +217,10 @@ function initializeApp() {
     });
 }
 
+// Закрытие модалок при клике на фон
 document.addEventListener('DOMContentLoaded', function() {
-    // Обработчик для всех модальных окон
     document.querySelectorAll('.modal, .modal_windoy').forEach(modal => {
         modal.addEventListener('click', function(e) {
-            // Если кликнули на сам оверлей (фон), а не на его содержимое
             if (e.target === this) {
                 closeModal();
             }
@@ -268,30 +228,95 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
+// ============= КНОПКА "ПОКАЗАТЬ БОЛЬШЕ" =============
 const showBtn = document.getElementById('commentsShowMore');
+if (showBtn) {
+    showBtn.addEventListener('click', function() {
+        const hiddenItems = document.querySelectorAll('.comments__item--hidden');
+        
+        for (let i = 0; i < 3 && i < hiddenItems.length; i++) {
+            hiddenItems[i].classList.remove('comments__item--hidden');
+            hiddenItems[i].classList.add('comments__item--visible');
+        }
+        
+        const remaining = document.querySelectorAll('.comments__item--hidden');
+        if (remaining.length === 0) {
+            this.style.display = 'none';
+        }
+    });
+}
 
-showBtn.addEventListener('click', function() {
-    // Ищем скрытые элементы по БЭМ классу
-    const hiddenItems = document.querySelectorAll('.comments__item--hidden');
+// ============= СИСТЕМА КОММЕНТАРИЕВ (САМАЯ ПРОСТАЯ) =============
+
+function addComment() {
+    const commentText = document.getElementById('commentText');
+    const text = commentText.value.trim();
+    const user = localStorage.getItem('loggedInUser');
     
-    // Показываем первые 3
-    for (let i = 0; i < 3 && i < hiddenItems.length; i++) {
-        hiddenItems[i].classList.remove('comments__item--hidden');
-        hiddenItems[i].classList.add('comments__item--visible');
+    if (!user) {
+        alert('Сначала войдите в аккаунт!');
+        openModal(new Event('click'));
+        return;
     }
     
-    // Если скрытых не осталось - скрываем кнопку
-    const remaining = document.querySelectorAll('.comments__item--hidden');
-    if (remaining.length === 0) {
-        this.style.display = 'none';
+    if (text.length < 5) {
+        alert('Минимум 5 символов!');
+        return;
     }
-});
+    
+    // Создаем элемент комментария
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comments__item comments__item--visible';
+    
+    // Получаем текущую дату и время
+    const now = new Date();
+    const dateStr = now.toLocaleString('ru-RU');
+    
+    commentDiv.innerHTML = `
+        <div class="comments__sidebar"></div>
+        <div class="comments__header">
+            <span class="comments__username">${user}</span>
+            <span class="comments__date">${dateStr}</span>
+        </div>
+        <p class="comments__text">${text}</p>
+    `;
+    
+    // Находим куда добавить
+    const commentsContainer = document.querySelector('.comments');
+    const authMessage = document.getElementById('authMessage');
+    
+    // Добавляем перед сообщением об авторизации
+    if (authMessage) {
+        commentsContainer.insertBefore(commentDiv, authMessage);
+    } else {
+        // Если нет authMessage, добавляем перед кнопкой "Показать больше"
+        const showMoreDiv = document.querySelector('.comments__more');
+        if (showMoreDiv) {
+            commentsContainer.insertBefore(commentDiv, showMoreDiv);
+        } else {
+            commentsContainer.appendChild(commentDiv);
+        }
+    }
+    
+    // Очищаем поле
+    commentText.value = '';
+    
+    alert('Комментарий добавлен!');
+}
 
+// Настроить кнопку отправки
+function setupCommentForm() {
+    const submitBtn = document.getElementById('submitComment');
+    
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            addComment();
+        });
+    }
+}
 
 // ============= СЛАЙДЕР ИГР =============
-
-// Массив данных об играх, содержащий название, URL картинки и ссылку
 const gamesData = [
     { title: "Pubg", img: "https://axios-macro.com/images/gradient/avif/lite.avif", url: "https://axios-macro.com/pubg" },
     { title: "Apex", img: "https://axios-macro.com/images/gradient/avif/apex.avif", url: "https://axios-macro.com/apex" },
@@ -302,239 +327,164 @@ const gamesData = [
     { title: "R6 Siege", img: "https://axios-macro.com/images/gradient/avif/r6.avif", url: "https://axios-macro.com/r6siege" }
 ];
 
-// Получаем DOM-элементы слайдера
-const galery = document.getElementById('galery'); // Контейнер для изображений игр
-const textGames = document.getElementById('text-games'); // Контейнер для текстовых кнопок
-const dotsContainer = document.getElementById('dots'); // Контейнер для точек-индикаторов
+const galery = document.getElementById('galery');
+const textGames = document.getElementById('text-games');
+const dotsContainer = document.getElementById('dots');
 
-// Настройки слайдера
-const totalRealItems = gamesData.length; // Количество реальных элементов (7)
-const itemsToShow = 4; // Сколько элементов показывать одновременно
-let currentIndex = totalRealItems; // Текущий индекс (стартуем с середины для бесконечного эффекта)
-let isTransitioning = false; // Флаг анимации (чтобы не было конфликтов при быстрых кликах)
-let autoPlayInterval; // Интервал для автопрокрутки
+// Проверяем, есть ли слайдер на странице
+if (galery && textGames && dotsContainer) {
+    const totalRealItems = gamesData.length;
+    const itemsToShow = 4;
+    let currentIndex = totalRealItems;
+    let isTransitioning = false;
+    let autoPlayInterval;
 
-// ============= ОСНОВНЫЕ ФУНКЦИИ СЛАЙДЕРА =============
-
-// Функция создания всех элементов слайдера (картинки, кнопки, точки)
-function createElements() {
-    // Создаем 3 копии массива для эффекта бесконечного скролла
-    const displayItems = [...gamesData, ...gamesData, ...gamesData];
-    
-    // Создаем карточки с изображениями игр
-    displayItems.forEach((game, index) => {
-        // Создаем div для карточки игры
-        const card = document.createElement('div');
-        card.className = 'card-game'; // Добавляем CSS-класс
-        // Сохраняем оригинальный индекс (0-6) для связи с кнопками
-        card.setAttribute('data-original-index', index % totalRealItems);
-        // Вставляем изображение с ссылкой
-        card.innerHTML = `<a href="${game.url}"><img src="${game.img}" alt="${game.title}"></a>`;
-        galery.appendChild(card); // Добавляем в контейнер
-
-        // Создаем текстовую кнопку для игры
-        const btnItem = document.createElement('div');
-        btnItem.className = 'text-game-item'; // CSS-класс
-        // Кнопка с текстом названия игры
-        btnItem.innerHTML = `<a class="text-game" href="${game.url}" data-index="${index % totalRealItems}">${game.title}</a>`;
-        textGames.appendChild(btnItem); // Добавляем в контейнер
-    });
-
-    // Создаем точки-индикаторы (по количеству реальных игр)
-    for (let i = 0; i < totalRealItems; i++) {
-        const dot = document.createElement('span');
-        dot.className = `dot ${i === 0 ? 'active' : ''}`; // Первая точка активна
-        dot.setAttribute('data-index', i); // Сохраняем индекс
-        dot.onclick = () => goToSlide(i + totalRealItems); // Обработчик клика
-        dotsContainer.appendChild(dot); // Добавляем в контейнер
-    }
-}
-
-// Функция обновления позиции слайдера
-function updateSlider(withTransition = true) {
-    // Включаем или выключаем CSS-переходы
-    if (withTransition) {
-        galery.classList.add('transition');
-        textGames.classList.add('transition');
-    } else {
-        galery.classList.remove('transition');
-        textGames.classList.remove('transition');
-    }
-
-    // Рассчитываем ширину контейнера
-    const containerWidth = document.querySelector('.galery-wrapper').clientWidth;
-    const gap = 20; // Расстояние между элементами
-    // Рассчитываем ширину одной карточки
-    const cardWidth = (containerWidth - (itemsToShow - 1) * gap) / itemsToShow;
-    const step = cardWidth + gap; // Шаг смещения (ширина карточки + отступ)
-    const offset = -currentIndex * step; // Общее смещение
-    
-    // Применяем смещение к слайдерам изображений и текстов
-    galery.style.transform = `translateX(${offset}px)`;
-    textGames.style.transform = `translateX(${offset}px)`;
-
-    // Обновляем активную точку-индикатор
-    const activeDotIndex = currentIndex % totalRealItems; // Индекс от 0 до 6
-    document.querySelectorAll('.dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === activeDotIndex); // Делаем активной нужную точку
-    });
-}
-
-// Обработчик завершения CSS-перехода
-function handleTransitionEnd() {
-    isTransitioning = false; // Сбрасываем флаг анимации
-    
-    // Если вышли за левую границу (перешли в начало)
-    if (currentIndex < totalRealItems) {
-        currentIndex += totalRealItems; // Перемещаемся в середину
-        updateSlider(false); // Обновляем без анимации
-    }
-    // Если вышли за правую границу (перешли в конец)
-    if (currentIndex >= totalRealItems * 2) {
-        currentIndex -= totalRealItems; // Перемещаемся в середину
-        updateSlider(false); // Обновляем без анимации
-    }
-}
-
-// Вешаем обработчик на завершение CSS-перехода
-galery.addEventListener('transitionend', handleTransitionEnd);
-
-// Функция перехода к конкретному слайду
-function goToSlide(index) {
-    if (isTransitioning) return; // Если уже идет анимация - выходим
-    isTransitioning = true; // Устанавливаем флаг анимации
-    currentIndex = index; // Обновляем текущий индекс
-    updateSlider(); // Запускаем обновление с анимацией
-}
-
-// Функция перехода к следующему слайду
-function nextSlide() {
-    goToSlide(currentIndex + 1);
-}
-
-// Функция запуска автопрокрутки
-function startAutoPlay() {
-    stopAutoPlay(); // Сначала останавливаем предыдущий интервал
-    autoPlayInterval = setInterval(nextSlide, 5000); // Запускаем с интервалом 5 сек
-}
-
-// Функция остановки автопрокрутки
-function stopAutoPlay() {
-    if (autoPlayInterval) {
-        clearInterval(autoPlayInterval); // Очищаем интервал
-    }
-}
-
-// Функция настройки подсветки картинок при наведении
-function setupImageHighlight() {
-    const allImages = document.querySelectorAll('.card-game img'); // Все изображения
-    const allTextButtons = document.querySelectorAll('.text-game'); // Все текстовые кнопки
-    
-    // Функция сброса всех эффектов подсветки
-    function resetAllImages() {
-        allImages.forEach(img => {
-            img.style.filter = ''; // Сбрасываем фильтры
-            img.style.transform = ''; // Сбрасываем трансформации
-        });
-    }
-    
-    // 1. Наведение на саму картинку
-    allImages.forEach(img => {
-        img.addEventListener('mouseenter', (e) => {
-            // Все картинки делаем черно-белыми
-            allImages.forEach(img => {
-                img.style.filter = 'grayscale() brightness(100%)';
-            });
-            // Текущую картинку оставляем цветной
-            e.target.style.filter = 'grayscale(0%) brightness(1)';
-        });
+    function createElements() {
+        const displayItems = [...gamesData, ...gamesData, ...gamesData];
         
-        img.addEventListener('mouseleave', resetAllImages); // При уходе сбрасываем
-    });
-    
-    // 2. Наведение на текстовую кнопку
-    allTextButtons.forEach((button, index) => {
-        button.addEventListener('mouseenter', () => {
-            // Все картинки делаем черно-белыми
+        displayItems.forEach((game, index) => {
+            const card = document.createElement('div');
+            card.className = 'card-game';
+            card.setAttribute('data-original-index', index % totalRealItems);
+            card.innerHTML = `<a href="${game.url}"><img src="${game.img}" alt="${game.title}"></a>`;
+            galery.appendChild(card);
+
+            const btnItem = document.createElement('div');
+            btnItem.className = 'text-game-item';
+            btnItem.innerHTML = `<a class="text-game" href="${game.url}" data-index="${index % totalRealItems}">${game.title}</a>`;
+            textGames.appendChild(btnItem);
+        });
+
+        for (let i = 0; i < totalRealItems; i++) {
+            const dot = document.createElement('span');
+            dot.className = `dot ${i === 0 ? 'active' : ''}`;
+            dot.setAttribute('data-index', i);
+            dot.onclick = () => goToSlide(i + totalRealItems);
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function updateSlider(withTransition = true) {
+        if (withTransition) {
+            galery.classList.add('transition');
+            textGames.classList.add('transition');
+        } else {
+            galery.classList.remove('transition');
+            textGames.classList.remove('transition');
+        }
+
+        const containerWidth = document.querySelector('.galery-wrapper').clientWidth;
+        const gap = 20;
+        const cardWidth = (containerWidth - (itemsToShow - 1) * gap) / itemsToShow;
+        const step = cardWidth + gap;
+        const offset = -currentIndex * step;
+        
+        galery.style.transform = `translateX(${offset}px)`;
+        textGames.style.transform = `translateX(${offset}px)`;
+
+        const activeDotIndex = currentIndex % totalRealItems;
+        document.querySelectorAll('.dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === activeDotIndex);
+        });
+    }
+
+    function handleTransitionEnd() {
+        isTransitioning = false;
+        
+        if (currentIndex < totalRealItems) {
+            currentIndex += totalRealItems;
+            updateSlider(false);
+        }
+        if (currentIndex >= totalRealItems * 2) {
+            currentIndex -= totalRealItems;
+            updateSlider(false);
+        }
+    }
+
+    galery.addEventListener('transitionend', handleTransitionEnd);
+
+    function goToSlide(index) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentIndex = index;
+        updateSlider();
+    }
+
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+
+    function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoPlay() {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+        }
+    }
+
+    function setupImageHighlight() {
+        const allImages = document.querySelectorAll('.card-game img');
+        const allTextButtons = document.querySelectorAll('.text-game');
+        
+        function resetAllImages() {
             allImages.forEach(img => {
-                img.style.filter = 'grayscale() brightness(100%)';
-                img.style.transform = 'scale(1)';
+                img.style.filter = '';
+                img.style.transform = '';
+            });
+        }
+        
+        allImages.forEach(img => {
+            img.addEventListener('mouseenter', (e) => {
+                allImages.forEach(img => {
+                    img.style.filter = 'grayscale() brightness(100%)';
+                });
+                e.target.style.filter = 'grayscale(0%) brightness(1)';
             });
             
-            // Находим соответствующую картинку по индексу
-            if (allImages[index]) {
-                allImages[index].style.filter = 'grayscale(0%) brightness(1)';
-            }
+            img.addEventListener('mouseleave', resetAllImages);
         });
         
-        button.addEventListener('mouseleave', resetAllImages); // При уходе сбрасываем
-    });
-}
+        allTextButtons.forEach((button, index) => {
+            button.addEventListener('mouseenter', () => {
+                allImages.forEach(img => {
+                    img.style.filter = 'grayscale() brightness(100%)';
+                    img.style.transform = 'scale(1)';
+                });
+                
+                if (allImages[index]) {
+                    allImages[index].style.filter = 'grayscale(0%) brightness(1)';
+                }
+            });
+            
+            button.addEventListener('mouseleave', resetAllImages);
+        });
+    }
 
-
-// ============= ФОРМА КОММЕНТАРИЯ =============
-function setupCommentForm() {
-    const submitBtn = document.getElementById('submitComment');
-    const commentText = document.getElementById('commentText');
-    
-    if (!submitBtn) return;
-    
-    submitBtn.addEventListener('click', function() {
-        const text = commentText.value.trim();
-        const user = localStorage.getItem('loggedInUser');
-        
-        if (!user) {
-            alert('Сначала войдите в аккаунт!');
-            openModal(new Event('click'));
-            return;
-        }
-        
-        if (text.length < 10) {
-            alert('Отзыв должен содержать минимум 10 символов');
-            return;
-        }
-        
-        if (text.length > 500) {
-            alert('Отзыв не должен превышать 500 символов');
-            return;
-        }
-        
-        alert('Спасибо за ваш отзыв! Он будет опубликован после проверки.');
-        commentText.value = '';
-    });
-}
-
-// ============= ИНИЦИАЛИЗАЦИЯ ВСЕГО ПРИЛОЖЕНИЯ =============
-
-// Главная функция инициализации всего приложения
-function initializeAll() {
-    initializeApp();
-    
     // Инициализация слайдера
-    createElements(); // Создаем элементы
-    setTimeout(() => updateSlider(false), 50); // Обновляем позицию после небольшой задержки
-    
-    // Инициализация подсветки картинок
+    createElements();
+    setTimeout(() => updateSlider(false), 50);
     setupImageHighlight();
-    
-    setupMasterCardSelection();
-    // Автоплей слайдера
     startAutoPlay();
 
-    setupVideoButtons();
+    window.addEventListener('resize', () => updateSlider(false));
     
-    setupCommentForm();
-
-
-    // Обработка изменения размера окна
-    window.addEventListener('resize', () => updateSlider(false)); // Без анимации
-    
-    // Остановка автоплея при наведении на слайдер
     const container = document.querySelector('.games-slider-container');
-    container.addEventListener('mouseenter', stopAutoPlay); // Останавливаем при наведении
-    container.addEventListener('mouseleave', startAutoPlay); // Возобновляем при уходе
+    if (container) {
+        container.addEventListener('mouseenter', stopAutoPlay);
+        container.addEventListener('mouseleave', startAutoPlay);
+    }
 }
 
-// Запуск при полной загрузке страницы
-window.onload = initializeAll;
+// ============= ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ =============
+function initializeAll() {
+    initializeApp();
+    setupMasterCardSelection();
+    setupVideoButtons();
+    setupCommentForm();
+}
 
+// Запуск при загрузке
+window.onload = initializeAll;

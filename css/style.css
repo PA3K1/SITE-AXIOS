@@ -854,6 +854,7 @@ button:focus {
 }
 
 
+
 /* СТИЛИ ДЛЯ КОМЕНТАРИЕВ */
 .comments {
     width: 100%;
@@ -949,49 +950,26 @@ button:focus {
     text-align: center;
 }
 
-
-
-/* Форма комментария */
-.comments__form {
-    border: none;
-    border-radius: 10px;
-    font-size: 20px;
-    resize: none;
-    margin-top: 50px;
-}
-
-
-
-.comments__form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.comments__form-title {
-    color: #fff;
-    font-size: 22px;
-    font-weight: 600;
-    margin: 0;
-}
-
-.comments__form-user {
-    color: #7775D1;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.comments__form-textarea {
-    border: none;
-    border-radius: 10px;
-    background-color: #1f2229;
-    font-size: 20px;
-    resize: none;
-    margin-top: 50px;
+.comments__form-input {
     width: 1300px;
     height: 200px;
-    resize: vertical;
+    background-color: #1A1D26;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 15px 20px;
+    resize: none; /* запрет растягивания */
+}
+
+.comments__form-input:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+.comments__form{
+    padding: 20px 300px;
 }
 
 .comments__form-submit {
@@ -1007,26 +985,14 @@ button:focus {
     transition: all 0.3s ease;
 }
 
+.container__button-type{
+    display: flex;
+    justify-content: center;
+    text-align: center; /* для старых браузеров */
+    margin: 20px 0; /* небольшие отступы сверху и снизу */
+}
+
 .comments__form-submit:hover {
-    background: #fff;
-    color: #7775D1;
-}
-
-/* Кнопка входа в сообщении */
-.comments__login-btn {
-    background: #7775D1;
-    border: none;
-    border-radius: 30px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 12px 30px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-}
-
-.comments__login-btn:hover {
     background: #fff;
     color: #7775D1;
 }
