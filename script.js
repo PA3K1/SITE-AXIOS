@@ -158,12 +158,28 @@ function registerUser(email, password) {
 function updateHeader() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     const headerOpen = document.querySelector('.header__open');
-    
+    const authMessage = document.getElementById('authMessage');
+    const commentForm = document.getElementById('commentForm');  
+
     if (loggedInUser) {
         headerOpen.innerHTML = `
             <span>${loggedInUser}</span>
             <a class="header__link open__modal" onclick="logoutUser()" href="#">ВЫХОД</a>
         `;
+        
+
+        if (authMessage) authMessage.style.display = 'none';
+        if (commentForm) commentForm.style.display = 'block';
+
+        
+    } else {
+        headerOpen.innerHTML = `
+            <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
+            <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
+        `;
+        
+        if (authMessage) authMessage.style.display = 'block';
+        if (commentForm) commentForm.style.display = 'none';
     }
 }
 
@@ -455,6 +471,39 @@ function setupImageHighlight() {
     });
 }
 
+
+// ============= ФОРМА КОММЕНТАРИЯ =============
+function setupCommentForm() {
+    const submitBtn = document.getElementById('submitComment');
+    const commentText = document.getElementById('commentText');
+    
+    if (!submitBtn) return;
+    
+    submitBtn.addEventListener('click', function() {
+        const text = commentText.value.trim();
+        const user = localStorage.getItem('loggedInUser');
+        
+        if (!user) {
+            alert('Сначала войдите в аккаунт!');
+            openModal(new Event('click'));
+            return;
+        }
+        
+        if (text.length < 10) {
+            alert('Отзыв должен содержать минимум 10 символов');
+            return;
+        }
+        
+        if (text.length > 500) {
+            alert('Отзыв не должен превышать 500 символов');
+            return;
+        }
+        
+        alert('Спасибо за ваш отзыв! Он будет опубликован после проверки.');
+        commentText.value = '';
+    });
+}
+
 // ============= ИНИЦИАЛИЗАЦИЯ ВСЕГО ПРИЛОЖЕНИЯ =============
 
 // Главная функция инициализации всего приложения
@@ -473,6 +522,9 @@ function initializeAll() {
     startAutoPlay();
 
     setupVideoButtons();
+    
+    setupCommentForm();
+
 
     // Обработка изменения размера окна
     window.addEventListener('resize', () => updateSlider(false)); // Без анимации
