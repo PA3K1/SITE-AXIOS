@@ -233,11 +233,6 @@ function addComment() {
     const text = commentText.value.trim();
     const user = localStorage.getItem('loggedInUser');
     
-    if (!user) {
-        alert('Сначала войдите в аккаунт!');
-        openModal(new Event('click'));
-        return;
-    }
     
     if (text.length < 5) {
         alert('Минимум 5 символов!');
@@ -252,27 +247,31 @@ function addComment() {
     const now = new Date();
     const dateStr = now.toLocaleString('ru-RU');
     
+    // HTML комментария с кнопкой удалить (ТОЛЬКО ДЛЯ НОВЫХ КОММЕНТАРИЕВ)
     commentDiv.innerHTML = `
         <div class="comments__sidebar"></div>
         <div class="comments__header">
             <span class="comments__username">${user}</span>
             <span class="comments__date">${dateStr}</span>
+            <button class="delete-comment" onclick="if(confirm('Удалить комментарий?')) { this.closest('.comments__item').remove(); showToast(' Комментарий удален'); }"> Удалить</button>
         </div>
         <p class="comments__text">${text}</p>
     `;
     
-    // Находим куда добавить
+    // Находим контейнер комментариев
     const commentsContainer = document.querySelector('.comments');
-    const authMessage = document.getElementById('authMessage');
     
-    // Добавляем перед сообщением об авторизации
-    if (authMessage) {
-        commentsContainer.insertBefore(commentDiv, authMessage);
+    // Находим ПЕРВЫЙ комментарий на странице
+    const firstComment = document.querySelector('.comments__item');
+    
+    if (firstComment) {
+        // Добавляем ПЕРЕД первым комментарием (САМЫЙ ВЕРХ)
+        commentsContainer.insertBefore(commentDiv, firstComment);
     } else {
-        // Если нет authMessage, добавляем перед кнопкой "Показать больше"
-        const showMoreDiv = document.querySelector('.comments__more');
-        if (showMoreDiv) {
-            commentsContainer.insertBefore(commentDiv, showMoreDiv);
+        // Если комментариев нет, добавляем перед сообщением об авторизации
+        const authMessage = document.getElementById('authMessage');
+        if (authMessage) {
+            commentsContainer.insertBefore(commentDiv, authMessage);
         } else {
             commentsContainer.appendChild(commentDiv);
         }
@@ -281,7 +280,7 @@ function addComment() {
     // Очищаем поле
     commentText.value = '';
     
-    alert('Комментарий добавлен!');
+    showToast('✓ Комментарий добавлен');
 }
 
 // Настроить кнопку отправки
@@ -294,6 +293,25 @@ function setupCommentForm() {
             addComment();
         });
     }
+}
+
+
+// Функция для показа всплывающего сообщения
+function showToast(message) {
+    // Удаляем старое уведомление если есть
+    const oldToast = document.querySelector('.comment-toast');
+    if (oldToast) oldToast.remove();
+    
+    // Создаем новое уведомление
+    const toast = document.createElement('div');
+    toast.className = 'comment-toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    // Удаляем через 3 секунды
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
 
 // ============= СЛАЙДЕР ИГР =============
