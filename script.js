@@ -206,27 +206,7 @@ function handleLogin(event) {
     }
 }
 
-function initializeApp() {
-    updateHeader();
-    
-    document.querySelector('.modal--registration form').addEventListener('submit', handleRegistration);
-    document.querySelector('.modal form').addEventListener('submit', handleLogin);
-    
-    document.querySelectorAll('.modal__close').forEach(btn => {
-        btn.onclick = closeModal;
-    });
-}
 
-// Закрытие модалок при клике на фон
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.modal, .modal_windoy').forEach(modal => {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-    });
-});
 
 // ============= КНОПКА "ПОКАЗАТЬ БОЛЬШЕ" =============
 const showBtn = document.getElementById('commentsShowMore');
@@ -246,7 +226,7 @@ if (showBtn) {
     });
 }
 
-// ============= СИСТЕМА КОММЕНТАРИЕВ (САМАЯ ПРОСТАЯ) =============
+// ============= СИСТЕМА КОММЕНТАРИЕВ  =============
 
 function addComment() {
     const commentText = document.getElementById('commentText');
@@ -480,7 +460,14 @@ if (galery && textGames && dotsContainer) {
 
 // ============= ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ =============
 function initializeAll() {
-    initializeApp();
+    updateHeader(); // обновляет шапку и показывает/скрывает форму комментариев
+    
+    document.querySelector('.modal form').addEventListener('submit', handleLogin);
+    document.querySelector('.modal--registration form').addEventListener('submit', handleRegistration);
+
+
+
+
     setupMasterCardSelection();
     setupVideoButtons();
     setupCommentForm();
