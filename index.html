@@ -35,7 +35,7 @@
     <div class="modal__content">
         <div class="modal__cont-1">
             <p class="sub__title">ВХОД В КАБИНЕТ</p>
-            <img class="modal__close" src="img/Cancel_Icon.svg.svg" alt="закрыть">
+            <img class="modal__close" src="img/Cancel_Icon.svg.svg" alt="закрыть" onclick="closeModal()">
         </div>
         <form>
             <div class="form__content">
@@ -57,25 +57,19 @@
     <div class="modal__content windoy__content">
         <div class="modal__cont-1">
             <p class="sub__title">Добро пожаловать<br>в наше дружное <br> сообщество!</p>
-            <img class="modal__close" src="img/Cancel_Icon.svg.svg" alt="закрыть">
+            <img class="modal__close" src="img/Cancel_Icon.svg.svg" alt="закрыть" onclick="closeModal()">
         </div>
         <form>
-            
             <div class="form__content">
                 <input class="form__header" type="email" name="email" placeholder="Введите ваш E-mail" required>
             </div>
             <div class="form__content">
                 <input class="form__header" type="password" name="password" placeholder="Придумайте пароль" required>
             </div>
-
-
             <div class="form__content__captha">
                 <input class="form__header form__captha" type="password" name="password" placeholder="Введите код" required>
                 <img class="captha" src="img/captcha.jpg" alt="" srcset="">
             </div>
-
-
-
                 <div class="header__block-entrance">
                 <button type="submit" class="entrance__button entrance__button-2">Отправить</button>
             </div>
@@ -99,7 +93,7 @@
             </p>
             
             <div class="features">
-                <button class="try-button" >ПОПРОБОВАТЬ</button>
+                <button class="try-button" onclick="scrollToPrices()" >ПОПРОБОВАТЬ</button>
                 <div class="badge">ОБНОВЛЕН И РАБОТАЕТ</div>
             </div>
         </div>
@@ -366,11 +360,12 @@
 </div>
 
 
-
+<h6 class="big-slide-text big-price-text">СКРИНШОТЫ ПРОГРАММЫ</h6>
 
 
 
 <script src="script.js" defer></script>
 </body>
+
 </html>
 

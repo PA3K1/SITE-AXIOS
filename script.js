@@ -31,6 +31,13 @@ function closeModal() {
     }
 }
 
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal--auto')) {
+        e.target.style.opacity = '0';
+        setTimeout(() => e.target.style.display = 'none', 300);
+    }
+});
+
 function setupMasterCardSelection() {
     const masterCardImage = document.querySelector('.image_focus');
     const continueButton = document.querySelector('.modal-focus-link');
@@ -103,6 +110,7 @@ let users = [
     {email: "admin@test.com", password: "12345"},
     {email: "user@test.com", password: "qwerty"}
 ];
+
 
 function checkCaptcha(inputValue) {
     return inputValue === "6138B";
