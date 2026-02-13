@@ -322,6 +322,145 @@ function showToast(message) {
     }, 3000);
 }
 
+// ---------- СЛАЙДЕР ----------
+const track = document.getElementById('track');
+const range = document.getElementById('range');
+
+function updateSlider() {
+    const firstSlide = track.children[0];
+    if (!firstSlide) return;
+
+    const slideWidth = firstSlide.offsetWidth;
+    const marginRight = parseFloat(getComputedStyle(firstSlide).marginRight) || 0;
+    const stepWidth = slideWidth + marginRight;
+    const maxOffset = stepWidth;
+
+    const val = parseInt(range.value, 10);
+    const offset = (val / 100) * maxOffset;
+
+    track.style.transform = `translateX(-${Math.round(offset)}px)`;
+}
+
+range.addEventListener('input', updateSlider);
+window.addEventListener('resize', updateSlider);
+updateSlider();
+
+// ---------- МОДАЛКА С УСИЛЕННЫМ СДВИГОМ (переименована) ----------
+const slides = document.querySelectorAll('.slide');
+const sliderModal = document.getElementById('sliderModal');
+const modalImage = document.getElementById('sliderModalImage');
+const modalClose = document.getElementById('sliderModalClose');
+const modalPrev = document.getElementById('sliderModalPrev');
+const modalNext = document.getElementById('sliderModalNext');
+
+// Массив src картинок
+const imagesSrc = [];
+slides.forEach(slide => {
+    const img = slide.querySelector('img:first-child');
+    if (img) imagesSrc.push(img.src);
+});
+
+let currentIndex = 0;
+let isAnimating = false;
+
+// Обновление состояния стрелок (disabled)
+function updateNavButtons() {
+    modalPrev.classList.toggle('slider-modal__nav--disabled', currentIndex === 0);
+    modalNext.classList.toggle('slider-modal__nav--disabled', currentIndex === imagesSrc.length - 1);
+}
+
+// Открыть модалку слайдера
+function openSliderModal(index) {
+    if (index < 0 || index >= imagesSrc.length) return;
+    currentIndex = index;
+    modalImage.src = imagesSrc[currentIndex];
+    sliderModal.classList.add('active');
+    document.body.classList.add('modal-open');
+    updateNavButtons();
+}
+
+// Закрыть модалку слайдера
+function closeSliderModal() {
+    sliderModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+}
+
+// Анимация смены изображения
+function changeImage(direction) {
+    if (isAnimating) return;
+    let newIndex = currentIndex + direction;
+    if (newIndex < 0 || newIndex >= imagesSrc.length) return;
+
+    isAnimating = true;
+
+    // 1. Текущая картинка уезжает
+    const offsetOut = direction > 0 ? '-100vw' : '100vw';
+    modalImage.style.transition = 'transform 0.3s ease';
+    modalImage.style.transform = `translateX(${offsetOut})`;
+
+    setTimeout(() => {
+        // 2. Меняем картинку
+        currentIndex = newIndex;
+        modalImage.src = imagesSrc[currentIndex];
+        updateNavButtons();
+
+        // 3. Мгновенно ставим новую картинку с противоположной стороны (без анимации)
+        modalImage.style.transition = 'none';
+        const offsetIn = direction > 0 ? '100vw' : '-100vw';
+        modalImage.style.transform = `translateX(${offsetIn})`;
+
+        // Небольшая задержка, чтобы браузер применил позицию без transition
+        setTimeout(() => {
+            // 4. Анимируем въезд в центр
+            modalImage.style.transition = 'transform 0.3s ease';
+            modalImage.style.transform = 'translateX(0)';
+
+            // 5. Разблокируем кнопки после окончания анимации въезда
+            setTimeout(() => {
+                isAnimating = false;
+                modalImage.style.transition = 'none';
+            }, 300);
+        }, 20);
+    }, 300);
+}
+
+// Клик по слайду
+slides.forEach((slide, idx) => {
+    slide.addEventListener('click', () => {
+        openSliderModal(idx);
+    });
+});
+
+// Закрытие
+modalClose.addEventListener('click', closeSliderModal);
+sliderModal.addEventListener('click', (e) => {
+    if (e.target === sliderModal) closeSliderModal();
+});
+
+// Стрелки с проверкой на disabled
+modalPrev.addEventListener('click', () => {
+    if (!modalPrev.classList.contains('slider-modal__nav--disabled')) {
+        changeImage(-1);
+    }
+});
+modalNext.addEventListener('click', () => {
+    if (!modalNext.classList.contains('slider-modal__nav--disabled')) {
+        changeImage(1);
+    }
+});
+
+// Клавиши
+window.addEventListener('keydown', (e) => {
+    if (!sliderModal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeSliderModal();
+    if (e.key === 'ArrowLeft' && !modalPrev.classList.contains('slider-modal__nav--disabled')) {
+        changeImage(-1);
+    }
+    if (e.key === 'ArrowRight' && !modalNext.classList.contains('slider-modal__nav--disabled')) {
+        changeImage(1);
+    }
+});
+
 // ============= СЛАЙДЕР ИГР =============
 const gamesData = [
     { title: "Pubg", img: "https://axios-macro.com/images/gradient/avif/lite.avif", url: "https://axios-macro.com/pubg" },
@@ -493,7 +632,7 @@ function initializeAll() {
 
 
 
-
+    updateNavButtons();
     setupMasterCardSelection();
     setupVideoButtons();
     setupCommentForm();

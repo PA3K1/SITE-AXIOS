@@ -361,7 +361,49 @@
 
 
 <h6 class="big-slide-text big-price-text">СКРИНШОТЫ ПРОГРАММЫ</h6>
+<div class="slider">
+        <div class="viewport">
+            <div class="track" id="track">
+                <div class="slide">
+                    <img src="img/1 programs.avif" alt="Программа 1">
+                    <div class="search-icon">
+                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="img/2 programs.avif" alt="Программа 2">
+                    <div class="search-icon">
+                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="img/3 programs.avif" alt="Программа 3">
+                    <div class="search-icon">
+                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="img/4 programs.avif" alt="Программа 4">
+                    <div class="search-icon">
+                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="range-wrap">
+            <input type="range" id="range" min="0" max="100" value="0">
+        </div>
+    </div>
 
+    <!-- Модальное окно для слайдера (переименовано) -->
+    <div class="slider-modal" id="sliderModal">
+        <span class="slider-modal__close" id="sliderModalClose">&times;</span>
+        <span class="slider-modal__nav slider-modal__nav--prev" id="sliderModalPrev">&#10094;</span>
+        <span class="slider-modal__nav slider-modal__nav--next" id="sliderModalNext">&#10095;</span>
+        <div class="slider-modal__content">
+            <img id="sliderModalImage" src="" alt="">
+        </div>
+    </div>
 
 
 <script src="script.js" defer></script>
