@@ -1309,3 +1309,167 @@ input[type=range]::-moz-range-thumb {
 body.modal-open {
     overflow: hidden;
 }
+
+
+/*СТИЛИ ДЛЯ ВЫПАДАЮЩЕГО СПИСКА */
+
+        .wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .big-slide-text.big-price-text {
+            text-align: center;
+            color: #fff;
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .quesWrap {
+            border-radius: 24px;
+            padding: 15px;
+            margin-bottom: 40px;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            background-color: #1A1D26;
+            border-radius: 50px;
+            margin-bottom: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #e5e9f0;
+            position: relative;      /* для управления z-index */
+            z-index: 2;              /* вкладка поверх ответа */
+        }
+        .tab:hover {
+            background: #2e3641;
+        }
+
+        .tab.active {
+            background-color: #7775D1;
+        }
+        .tab.active:hover {
+            background-color: #6a68c0;
+        }
+
+        .tab .circle {
+            width: 17px;
+            height: 17px;
+            background-color: #7775D1;
+            border-radius: 50%;
+            margin-right: 15px;
+            transition: background-color 0.2s ease;
+        }
+
+
+        .tab i {
+            font-size: 70px;
+            color: #7775D1;
+            transition: color 0.2s ease, transform 0.3s ease;
+        }
+        .tab.active i {
+            transform: rotate(180deg);
+        }
+
+        .tab:hover .circle,
+        .tab.active .circle {
+            background-color: #ffffff;
+        }
+        .tab:hover i,
+        .tab.active i {
+            color: #ffffff;
+        }
+
+
+        .qustion-text{
+                        flex: 1;
+            margin: 0;
+            font-weight: 400;
+            font-size: 30px;
+        }
+
+        .text-answer{
+            font-size: 20px;
+            color: white;
+            font-weight: 600;
+        }
+
+
+
+
+
+        /* Блок ответа */
+        .info {
+            max-height: 0;
+            overflow: hidden;               /* скрыто при закрытии */
+            transition: max-height 0.4s ease-out, opacity 0.3s ease, margin 0.3s, padding 0.3s;
+            background: #1a1e24;            /* фон ответа */
+            border-radius: 0 0 16px 16px;
+            margin: 0;
+            padding: 0 20px;
+            opacity: 0;
+            color: #b1c3d9;
+            line-height: 1.6;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;                      /* ответ под вкладкой */
+        }
+        .info.open {
+            max-height: 300px;
+            opacity: 1;
+            overflow: visible;                /* чтобы видеть часть, заходящую под вкладку */
+            margin-top: -40px;                 /* подъём ответа на половину высоты вкладки */
+            padding: 60px 40px;      /* верхний отступ равен величине подъёма, чтобы текст не налезал на вопрос */
+        }
+
+        /* Добавляем отступ между разными парами */
+        .tab:not(:last-of-type) {
+            margin-bottom: 0;
+        }
+        .info:not(.open) + .tab {
+            margin-top: 20px;   /* отступ между закрытыми парами */
+        }
+        .info.open + .tab {
+            margin-top: 0;      /* если ответ открыт, следующий таб примыкает непосредственно (или нужен другой отступ) – можно настроить */
+        }
+        /* Чтобы после открытого ответа следующий вопрос не прилипал слишком близко, можно добавить отступ снизу самому ответу? */
+        .info.open {
+            margin-bottom: 20px;  /* отступ после открытого ответа до следующего вопроса */
+        }
+
+        /* Блок контактов */
+        .contacts {
+            text-align: center;
+        }
+        .contacts .wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+        .contacts a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 260px;
+            height: 50px;
+            background: #1e262f;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: background-color 0.2s ease, outline 0.2s ease;
+        }
+        .contacts a:hover {
+            background-color: #7775D1;
+        }
+        .contacts img {
+            width: 104px;
+            height: 52px;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
