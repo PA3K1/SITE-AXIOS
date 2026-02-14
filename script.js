@@ -101,8 +101,15 @@ function setupVideoButtons() {
 }
 
 // Функция для прокрутки к тарифам
+// Функция для плавной прокрутки к тарифам
 function scrollToPrices() {
-    document.getElementById('prices')?.scrollIntoView();
+    const pricesSection = document.getElementById('prices');
+    if (pricesSection) {
+        pricesSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
 }
 
 // ============= ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ =============
