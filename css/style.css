@@ -1539,3 +1539,10 @@ body.modal-open {
         text-align: center;
         margin: 0;
 }
+
+
+.hamburger,
+.mobile-menu,
+.mobile-actions {
+    display: none;
+}

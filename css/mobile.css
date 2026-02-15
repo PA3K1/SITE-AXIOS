@@ -1,0 +1,205 @@
+/* ========== МОБИЛЬНАЯ ВЕРСИЯ (до 450px) ========== */
+@media (max-width: 450px) {
+    /* Скрываем обычный хедер */
+    .header__container {
+        display: none;
+    }
+
+    /* Гамбургер-кнопка */
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        z-index: 1002;
+        background: transparent;
+        border: none;
+    }
+
+    .hamburger span {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: white;
+        border-radius: 3px;
+        left: 0;
+        transition: 0.25s ease-in-out;
+    }
+
+    .hamburger span:nth-child(1) {
+        top: 0;
+    }
+    .hamburger span:nth-child(2) {
+        top: 10px;
+    }
+    .hamburger span:nth-child(3) {
+        top: 20px;
+    }
+
+    /* Полноэкранное мобильное меню */
+    .mobile-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #15171D;
+        z-index: 1001;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-in-out;
+        overflow-y: auto;
+        padding: 60px 20px 20px;
+    }
+
+    .mobile-menu.active {
+        transform: translateY(0);
+    }
+
+    /* Кнопка закрытия (крестик) */
+    .mobile-menu__close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 40px;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        z-index: 1003;
+    }
+
+    /* Навигация внутри меню */
+    .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    .mobile-nav__link {
+        font-size: 40px;
+        text-align: center;
+        font-family: 'Nunito', sans-serif;
+        color: rgba(255, 255, 255, 0.329);
+        display: block;
+        font-weight: 300;
+        transition: color 0.2s;
+        text-decoration: none;
+        margin: 100px 0px;
+    }
+
+    .mobile-nav__link:hover {
+        color: white;
+    }
+
+    /* Кнопка ВХОД */
+    .mobile-nav__button {
+        background-color: transparent;
+        border: 2px solid #7775D1;
+        border-radius: 30px;
+        text-align: center;
+        padding: 15px 0;
+        color: white;
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .mobile-nav__button:hover {
+        background-color: #7775D1;
+    }
+
+    /* Выпадающий блок "Контакты" */
+    .mobile-nav__dropdown {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-nav__dropdown-trigger {
+        border-bottom: 1px solid #2a2a2a;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .mobile-nav__dropdown-trigger::after {
+        content: '▼';
+        font-size: 16px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.3s;
+    }
+
+    .mobile-nav__dropdown.active .mobile-nav__dropdown-trigger::after {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .mobile-nav__dropdown-content {
+        display: none;
+        flex-direction: column;
+        padding-left: 20px;
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .mobile-nav__dropdown.active .mobile-nav__dropdown-content {
+        display: flex;
+    }
+
+    .mobile-nav__dropdown-content a {
+        color: #7775D1;
+        text-decoration: none;
+        font-size: 20px;
+        padding: 5px 0;
+    }
+
+    .header__link{
+    }
+}
+
+
+@media (max-width: 450px) {
+    .mobile-header__actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .mobile-header__actions .header__link {
+        color: #585858;
+        font-size: 16px; /* подбери размер */
+    }
+
+    .mobile-header__actions .open__modal {
+        border: 2px solid #7775D1;
+        border-radius: 30px;
+        padding: 5px 15px;
+        color: white;
+    }
+
+    .mobile-actions{
+        display: flex;
+        gap: 50px;
+    }
+
+    .header__link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 40px;
+    transition: all 0.2s ease;
+    margin: 30px;
+}
+
+.open__modal {
+    color: #fff;
+    background-color: #15171D;
+    border: 3px solid #7775D1;
+    border-radius: 50px;
+    padding:14px 55px ;
+    transition: all 0.3s ease;
+}
+}

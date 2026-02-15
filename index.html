@@ -5,12 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     
 </head>
 <body>
 
 <header class="header">
+<div class="mobile-menu">
+    <div class="mobile-menu__close">&times;</div>
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav__link">Цены</a>
+        <a href="#" class="mobile-nav__link">Решение проблем</a>
+        <a href="#" class="mobile-nav__link">Инструкция</a>
+        <a href="#" class="mobile-nav__link">Блог</a>
+    </nav>
+</div>
+    <!-- Гамбургер-кнопка (три полоски) -->
+    <div class="mobile-actions">
+    <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
+    <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
+</div>
+
+<div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>   
+</div>
+
+
     <div class="header__container">
         <a class="header__link" href="#" >Цены</a>
         <a class="header__link" href="#">Решение проблем</a>
@@ -506,6 +530,7 @@
 </script>
 
 <script src="script.js" defer></script>
+<script src="mobile.js" defer></script>
 </body>
 
 </html>
