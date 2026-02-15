@@ -1544,6 +1544,7 @@ body.modal-open {
 .hamburger,
 .mobile-menu,
 .mobile-actions,
-.mobile-h1 {
+.mobile-h1,
+.container-mobile {
     display: none;
 }
