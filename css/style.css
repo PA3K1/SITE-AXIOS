@@ -1543,6 +1543,7 @@ body.modal-open {
 
 .hamburger,
 .mobile-menu,
-.mobile-actions {
+.mobile-actions,
+.mobile-h1 {
     display: none;
 }

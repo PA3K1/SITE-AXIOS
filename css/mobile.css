@@ -8,7 +8,7 @@ html, body {
 }
 
     /* Скрываем обычный хедер */
-    .header__container {
+    .header__container, .container{
         display: none;
     }
 
@@ -87,15 +87,15 @@ html, body {
     }
 
     .mobile-nav__link {
-        font-size: 40px;
+        font-size: 25px;
         text-align: center;
         font-family: 'Nunito', sans-serif;
         color: rgba(255, 255, 255, 0.329);
         display: block;
-        font-weight: 300;
+        font-weight: 200;
         transition: color 0.2s;
         text-decoration: none;
-        margin: 100px 0px;
+        margin: 34px 0px;
     }
 
     .mobile-nav__link:hover {
@@ -208,5 +208,50 @@ html, body {
     border-radius: 50px;
     padding:6px 35px ;
     transition: all 0.3s ease;
+}
+
+.logo-ring{
+    display: none;
+}
+
+.container-mobile{
+    margin-top: 80px;
+}
+
+.head-h1-mobile{
+    display: flex;
+    justify-content: center;
+    font-size: 21px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 400;
+    text-align: center;      /* для текста внутри */
+}
+
+.head-text-mobile{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.8; 
+    font-weight: 400;
+}
+
+.features {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .try-button {
+        margin: 0 auto; /* если нужно дополнительно */
+        font-weight: 400;
+        padding: 13px 28px;
+        font-size: 15px;
+    }
+
+.badge{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 }
