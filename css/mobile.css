@@ -1,9 +1,12 @@
 /* ========== МОБИЛЬНАЯ ВЕРСИЯ (до 450px) ========== */
 @media (max-width: 450px) {
 
-    body {
+html, body {
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
+
     /* Скрываем обычный хедер */
     .header__container {
         display: none;
