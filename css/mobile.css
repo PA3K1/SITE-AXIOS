@@ -188,7 +188,7 @@ html, body {
 
     .mobile-actions{
         display: flex;
-        gap: 50px;
+        gap: 40px;
     }
 
     .header__link{
@@ -196,9 +196,9 @@ html, body {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    font-size: 40px;
+    font-size: 20px;
     transition: all 0.2s ease;
-    margin: 30px;
+    margin: 20px;
 }
 
 .open__modal {
@@ -206,7 +206,7 @@ html, body {
     background-color: #15171D;
     border: 3px solid #7775D1;
     border-radius: 50px;
-    padding:14px 55px ;
+    padding:8px 45px ;
     transition: all 0.3s ease;
 }
 }
