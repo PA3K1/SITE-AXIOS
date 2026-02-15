@@ -137,13 +137,22 @@ function updateHeader() {
     const authMessage = document.getElementById('authMessage');
     const commentForm = document.getElementById('commentForm');
     const commentButton = document.getElementById('commentButton');
+    const mobileActions = document.querySelector('.mobile-actions'); // или #mobileActions
 
     if (loggedInUser) {
-        // Пользователь вошел
+        // Пользователь вошел - обновляем десктоп
         headerOpen.innerHTML = `
             <span>${loggedInUser}</span>
             <a class="header__link open__modal" onclick="logoutUser()" href="#">ВЫХОД</a>
         `;
+
+        // Обновляем мобильную панель
+        if (mobileActions) {
+            mobileActions.innerHTML = `
+                <span class="header__link" style="color: white;">${loggedInUser}</span>
+                <a class="header__link open__modal" onclick="logoutUser()" href="#">ВЫХОД</a>
+            `;
+        }
 
         if (authMessage) authMessage.style.display = 'none';
         if (commentForm) commentForm.style.display = 'block';
@@ -155,6 +164,14 @@ function updateHeader() {
             <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
             <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
         `;
+
+        // Восстанавливаем мобильную панель
+        if (mobileActions) {
+            mobileActions.innerHTML = `
+                <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
+                <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
+            `;
+        }
 
         if (authMessage) authMessage.style.display = 'block';
         if (commentForm) commentForm.style.display = 'none';

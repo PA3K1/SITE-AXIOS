@@ -198,7 +198,7 @@ html, body {
     text-decoration: none;
     font-size: 20px;
     transition: all 0.2s ease;
-    margin: 20px;
+    margin: 20px 10px ;
 }
 
 .open__modal {
@@ -206,7 +206,7 @@ html, body {
     background-color: #15171D;
     border: 3px solid #7775D1;
     border-radius: 50px;
-    padding:8px 45px ;
+    padding:6px 35px ;
     transition: all 0.3s ease;
 }
 }
