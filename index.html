@@ -487,7 +487,23 @@
         <p class="name__project-text">© 2026 axios macro</p>
     </div>
 
+<script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 
+<!-- Контейнер, в котором появится кнопка виджета -->
+<div id="vk_community_messages"></div>
+
+<script type="text/javascript">
+  // Инициализация виджета
+    VK.Widgets.CommunityMessages("vk_community_messages", 236032366, {
+    // Дополнительные настройки (по желанию)
+    expanded: 1,               // 1 – кнопка видна сразу, 0 – скрыта
+    widgetPosition: 'right',    // положение кнопки: 'right' или 'left'
+    disableNewMessagesSound: 0, // 1 – отключить звук новых сообщений
+    disableExpandChatSound: 1,  // 1 – отключить звук при раскрытии
+    disableButtonTooltip: 0,    // 1 – отключить всплывающую подсказку
+    tooltipButtonText: 'Есть вопрос? Напиши нам!' // текст подсказки
+    });
+</script>
 
 <script src="script.js" defer></script>
 </body>
