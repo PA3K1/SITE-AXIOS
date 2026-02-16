@@ -391,5 +391,73 @@ html, body {
     font-weight: 400;
     display: block;
 }
+}
 
+
+@media (max-width: 450px) {
+
+    .container-cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 0;
+    }
+
+
+    .text-card {
+        width: 210px;
+        height: 320px;      
+        margin: 30px 0;
+        position: relative;
+        padding: 0;     
+        box-sizing: border-box;
+    }
+
+    .text-card .subtitle-big {
+        font-size: 24px;
+        margin: 8px 0 0 8px;
+    }
+    .text-card .price_subtitle-text {
+        font-size: 26px;
+        margin: 0 0 0 12px;
+    }
+    .text-card .text-linear {
+        margin: 25px 0;      
+    }
+    .text-card .mini-sub-text {
+        font-size: 12px;
+        margin-left: 8px;
+    }
+    .text-card .days {
+        width: 80px;
+        height: 80px;
+        font-size: 14px;
+        top: -35px;
+        right: -25px;
+        border-width: 2px;
+    }
+    .text-card .sale-product {
+        width: 180px;
+        height: 44px;
+        font-size: 16px;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        line-height: 44px;
+        text-align: center;
+        background-color: #fff;
+        color: #7775D1;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .big-mobile-text-on-mobile{
+    font-size: 40px;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    display: block;
+    text-transform: uppercase;
+    font-weight: 500;
+    }
 }

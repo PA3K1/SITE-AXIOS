@@ -1548,7 +1548,8 @@ body.modal-open {
     .mobile-h1,
     .container-mobile,
     .control-section-mobile,
-    .big-slide-text-mobile {
+    .big-slide-text-mobile,
+    .big-mobile-text-on-mobile {
         display: none;
     }
 }
