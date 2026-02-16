@@ -271,7 +271,7 @@ html, body {
     .control-section-mobile{
         display: flex;
         flex-direction: column;
-        margin: 60px 0px;
+        margin: 60px 5px;
     }
 
     .video-content-mobile{
@@ -296,6 +296,7 @@ html, body {
     color: white;
     font-family: 'Nunito', sans-serif;
 }
+
 
 .control-text-mobile{
     font-size: 15px;
