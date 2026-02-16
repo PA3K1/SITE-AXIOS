@@ -38,3 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Количество видимых карточек в зависимости от ширины экрана
+function getItemsToShow() {
+    return window.innerWidth <= 450 ? 1 : 4;
+}

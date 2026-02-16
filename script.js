@@ -384,10 +384,28 @@ const dotsContainer = document.getElementById('dots');
 // Проверяем, есть ли слайдер на странице
 if (galery && textGames && dotsContainer) {
     const totalRealItems = gamesData.length;
-    const itemsToShow = 4;
+    let itemsToShow = window.innerWidth <= 450 ? 1 : 4;
+    let gap = window.innerWidth <= 450 ? 0 : 20;
     let currentIndex = totalRealItems;
     let isTransitioning = false;
     let autoPlayInterval;
+
+    // Обновление количества видимых карточек при изменении размера окна
+    window.addEventListener('resize', () => {
+        const newItemsToShow = window.innerWidth <= 450 ? 1 : 4;
+        const newGap = window.innerWidth <= 450 ? 0 : 20;
+        if (newItemsToShow !== itemsToShow || newGap !== gap) {
+            itemsToShow = newItemsToShow;
+            gap = newGap;
+            // корректировка currentIndex
+            if (currentIndex < totalRealItems) {
+                currentIndex = totalRealItems;
+            } else if (currentIndex >= totalRealItems * 2) {
+                currentIndex = totalRealItems * 2 - 1;
+            }
+            updateSlider(false);
+        }
+    });
 
     function createElements() {
         const displayItems = [...gamesData, ...gamesData, ...gamesData];
@@ -424,7 +442,6 @@ if (galery && textGames && dotsContainer) {
         }
 
         const containerWidth = document.querySelector('.galery-wrapper').clientWidth;
-        const gap = 20;
         const cardWidth = (containerWidth - (itemsToShow - 1) * gap) / itemsToShow;
         const step = cardWidth + gap;
         const offset = -currentIndex * step;
@@ -513,29 +530,28 @@ if (galery && textGames && dotsContainer) {
         });
     }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.dataset.tab;
-                    const info = document.querySelector(`.info[data-tab="${tabId}"]`);
-                    const isOpen = info.classList.contains('open');
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.dataset.tab;
+                const info = document.querySelector(`.info[data-tab="${tabId}"]`);
+                const isOpen = info.classList.contains('open');
 
-                    if (isOpen) return;
+                if (isOpen) return;
 
-                    document.querySelectorAll('.info.open').forEach(openInfo => {
-                        openInfo.classList.remove('open');
-                        const openTabId = openInfo.dataset.tab;
-                        const openTab = document.querySelector(`.tab[data-tab="${openTabId}"]`);
-                        if (openTab) openTab.classList.remove('active');
-                    });
-
-                    info.classList.add('open');
-                    this.classList.add('active');
+                document.querySelectorAll('.info.open').forEach(openInfo => {
+                    openInfo.classList.remove('open');
+                    const openTabId = openInfo.dataset.tab;
+                    const openTab = document.querySelector(`.tab[data-tab="${openTabId}"]`);
+                    if (openTab) openTab.classList.remove('active');
                 });
+
+                info.classList.add('open');
+                this.classList.add('active');
             });
         });
-
+    });
 
     // Инициализация слайдера
     createElements();

@@ -1541,11 +1541,14 @@ body.modal-open {
 }
 
 
-.hamburger,
-.mobile-menu,
-.mobile-actions,
-.mobile-h1,
-.container-mobile,
-.control-section-mobile {
-    display: none;
+@media (min-width: 451px) {
+    .hamburger,
+    .mobile-menu,
+    .mobile-actions,
+    .mobile-h1,
+    .container-mobile,
+    .control-section-mobile,
+    .big-slide-text-mobile {
+        display: none;
+    }
 }

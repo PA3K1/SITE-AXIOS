@@ -8,7 +8,7 @@ html, body {
 }
 
     /* Скрываем обычный хедер */
-    .header__container, .container, .control-section{
+    .header__container, .container, .control-section, .big-slide-text{
         display: none;
     }
 
@@ -338,4 +338,58 @@ html, body {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(255, 255, 255, 0.6);
 }
+
+
+.games-slider-container {
+    padding: 10px; /* уменьшаем отступы */
+}
+
+.galery-wrapper,
+.text-games-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.galery,
+.text-games {
+    gap: 0; /* убираем промежутки между карточками */
+}
+
+.card-game {
+    flex: 0 0 100%; /* каждая карточка занимает всю ширину контейнера */
+    max-width: 100%;
+}
+
+.card-game img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.text-game-item {
+    flex: 0 0 100%;
+    text-align: center;
+}
+
+.text-game {
+    width: 90%; /* чтобы текст не прилипал к краям */
+    margin: 0 auto;
+    font-size: 16px; /* чуть меньше на мобильных */
+    padding: 10px 0;
+}
+
+.slider-dots {
+    margin-top: 20px;
+}
+
+.big-slide-text-mobile{
+    font-family: 'Nunito', sans-serif;
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 400;
+    display: block;
+}
+
 }
