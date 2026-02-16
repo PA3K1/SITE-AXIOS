@@ -1545,6 +1545,7 @@ body.modal-open {
 .mobile-menu,
 .mobile-actions,
 .mobile-h1,
-.container-mobile {
+.container-mobile,
+.control-section-mobile {
     display: none;
 }

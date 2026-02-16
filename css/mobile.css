@@ -8,7 +8,7 @@ html, body {
 }
 
     /* Скрываем обычный хедер */
-    .header__container, .container{
+    .header__container, .container, .control-section{
         display: none;
     }
 
@@ -152,7 +152,7 @@ html, body {
         gap: 10px;
     }
 
-    .mobile-nav__dropdown.active .mobile-nav__dropdown-content {
+    .mobile-nav__dropdown.active .mobile-nav__dropdown-content .container-mobile {
         display: flex;
     }
 
@@ -163,8 +163,6 @@ html, body {
         padding: 5px 0;
     }
 
-    .header__link{
-    }
 }
 
 
@@ -215,6 +213,9 @@ html, body {
 }
 
 .container-mobile{
+    display: flex;
+    justify-content: center;
+
     margin-top: 80px;
 }
 
@@ -253,5 +254,87 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+}
+
+@media (max-width: 450px) {
+    .control-title{
+        font-size: 25px;
+    max-width: 480px;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    }
+    .control-section-mobile{
+        display: flex;
+        flex-direction: column;
+        margin: 60px 0px;
+    }
+
+    .video-content-mobile{
+    margin: 30px 0px;
+    }
+
+
+.video-wrapper-mobile img {
+    border: 7px solid #7775D1;
+    border-radius: 15px;
+    display: block;     /* убирает лишние отступы */
+    margin: 0 auto;     /* центрирует, если нужно */
+}
+
+.control-title-mobile{
+    font-size: 25px;
+    max-width: 480px;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+}
+
+.control-text-mobile{
+    font-size: 15px;
+    color: #ffffffc7;
+    text-align: center;
+    font-weight: 400;
+}
+
+.text-content-mobile{
+    background-color: #1A1D26;
+    border-radius: 30px;
+    padding: 20px 0px 40px;
+}
+
+.button-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: -25px; /* чтобы поднять контейнер вверх, если надо, но для выступа используем absolute у кнопки */
+}
+
+.control-button {
+    background-color: #fff;
+    color: #7775D1;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    top: -22px;
+}
+
+
+.control-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.6);
 }
 }
