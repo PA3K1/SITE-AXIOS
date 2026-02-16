@@ -461,3 +461,206 @@ html, body {
     font-weight: 500;
     }
 }
+
+@media (max-width: 450px){
+    /* Блок видео на мобильных */
+.big-slide-text.big-price-text {
+    font-size: 22px; /* уменьшаем заголовок */
+    margin: 20px 0;
+}
+
+.mini-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px;
+}
+.mini-text {
+    flex: 0 1 auto; /* не растягиваться, но может сжиматься */
+    padding: 8px 12px; /* отступы внутри */
+    white-space: nowrap; /* можно разрешить перенос, если мало места, но лучше nowrap */
+}
+
+/* Последние две кнопки переносим на новую строку,
+   но так как у нас grid с 3 колонками, четвертая и пятая автоматически перейдут на следующую строку */
+/* Можно дополнительно объединить ячейки для последних двух, чтобы они были посередине */
+.mini-text:nth-child(4),
+.mini-text:nth-child(5) {
+    grid-column: span 1; /* оставляем как есть */
+}
+
+/* Если хотим, чтобы две кнопки были по центру во второй строке,
+   можно добавить пустые ячейки слева и справа */
+.mini-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+/* Для центрирования двух кнопок можно использовать auto, но проще оставить как есть */
+/* Альтернатива: сделать flex с оберткой */
+.moda-text{
+    margin: 110px 0px 20px;
+}
+}
+
+@media (max-width: 450px) {
+    /* ===== Мобильные комментарии ===== */
+.comments {
+    width: 100%;
+    max-width: 400px;           /* комментарии не шире 400px */
+    margin: 40px auto;          /* центрируем на экране */
+    padding: 0 15px;            /* отступы от краёв */
+    box-sizing: border-box;
+}
+
+.comments__item {
+    margin: 15px 0;             /* убираем фиксированные margin */
+    padding: 15px 20px;         /* уменьшаем внутренние отступы */
+    border-radius: 15px;
+    background-color: #1A1D26;
+    position: relative;
+}
+
+.comments__sidebar {
+    width: 5px;                 /* уменьшаем боковую полоску */
+    border-radius: 5px 0 0 5px;
+}
+
+.comments__header {
+    flex-direction: row;        /* оставляем в строку, но разрешаем перенос */
+    flex-wrap: wrap;
+    gap: 5px 10px;              /* отступы при переносе */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #15171D;
+}
+
+.comments__username,
+.comments__date {
+    font-size: 14px;            /* немного уменьшаем */
+    color: #c4c4c47e;
+}
+
+.comments__username {
+    font-weight: 600;
+}
+
+.comments__date {
+    margin-right: auto;         /* прижимает дату к левому краю, если не влезает */
+}
+
+.delete-comment {
+    font-size: 12px;
+    padding: 3px 10px;
+    margin-left: 0;             /* сбрасываем старый отступ */
+    border-radius: 15px;
+    background-color: transparent;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.delete-comment:hover {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.comments__text {
+    font-size: 15px;            /* чуть меньше */
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+    word-wrap: break-word;      /* перенос длинных слов */
+}
+
+/* Кнопка "Показать больше" */
+.comments__more {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.comments__button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: #7775D1;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.comments__button:hover {
+    color: white;
+}
+
+/* Сообщение "Оставить отзыв могут только авторизованные пользователи" */
+.comments__auth-message {
+    max-width: 100%;
+    margin: 20px 0;
+    padding: 15px 20px;
+    background-color: #1A1D26;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.comments__auth-text {
+    font-size: 16px;
+    color: #54575C;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Форма добавления комментария */
+.comments__form {
+    padding: 0;                 /* убираем старые большие паддинги */
+    margin: 20px 0;
+}
+
+.comments__form-input {
+    width: 100%;                /* поле на всю ширину */
+    height: 120px;              /* уменьшаем высоту */
+    padding: 15px;
+    font-size: 16px;
+    background-color: #1A1D26;
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    color: white;
+    resize: vertical;           /* разрешаем менять высоту */
+    box-sizing: border-box;
+}
+
+.comments__form-input:focus {
+    outline: none;
+    border-color: #7775D1;
+}
+
+/* Кнопка отправки комментария */
+.container__button-type {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0 30px;
+}
+
+.comments__form-submit {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 20px;
+    font-size: 18px;
+    background-color: #7775D1;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    font-weight: 600;
+}
+
+.comments__form-submit:hover {
+    background-color: white;
+    color: #7775D1;
+    transform: translateY(-2px);
+}
+}
