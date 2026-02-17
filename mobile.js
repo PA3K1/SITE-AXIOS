@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.querySelector('.mobile-menu');
     const closeBtn = document.querySelector('.mobile-menu__close');
 
-    // Открытие меню
     if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', function() {
             mobileMenu.classList.add('active');
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Закрытие по крестику
     if (closeBtn && mobileMenu) {
         closeBtn.addEventListener('click', function() {
             mobileMenu.classList.remove('active');
@@ -19,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Закрытие по клику на любую ссылку внутри меню
     const mobileLinks = document.querySelectorAll('.mobile-nav__link:not(.mobile-nav__dropdown-trigger)');
     mobileLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -28,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Выпадающий список "Контакты"
     const dropdownTrigger = document.querySelector('.mobile-nav__dropdown-trigger');
     if (dropdownTrigger) {
         dropdownTrigger.addEventListener('click', function(e) {
@@ -39,12 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Количество видимых карточек в зависимости от ширины экрана
 function getItemsToShow() {
     return window.innerWidth <= 450 ? 1 : 4;
 }
 
-// ============= МОБИЛЬНЫЙ СЛАЙДЕР СКРИНШОТОВ =============
+// ============= МОБИЛЬНЫЙ СЛАЙДЕР =============
 (function initMobileSlider() {
     if (window.innerWidth > 450) return;
 
@@ -73,15 +68,13 @@ function getItemsToShow() {
         track.style.transition = 'transform 0.3s ease';
         updatePosition(targetOffset);
         setTimeout(() => {
-            track.style.transition = '';
+            track.style.transition = 'none';
         }, 300);
     }
 
-    // Инициализация
     updatePosition(0);
     range.value = 0;
 
-    // Ползунок
     range.addEventListener('input', (e) => {
         if (isDragging) return;
         const val = parseFloat(e.target.value);
@@ -90,14 +83,12 @@ function getItemsToShow() {
         updatePosition(offset);
     });
 
-    // Обновление при изменении размера
     window.addEventListener('resize', () => {
         slideWidth = slides[0].offsetWidth;
         maxOffset = slideWidth * (totalSlides - 1);
         updatePosition(currentOffset);
     });
 
-    // Свайпы
     track.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
         isDragging = true;
@@ -127,21 +118,20 @@ function getItemsToShow() {
     });
 })();
 
-// ============= МОДАЛКА СЛАЙДЕРА =============
+// ============= МОДАЛКА: ПРОСТЫЕ СВАЙПЫ =============
 (function initModalSwipe() {
     if (window.innerWidth > 450) return;
 
     const modal = document.getElementById('sliderModal');
     const modalImage = document.getElementById('sliderModalImage');
-    if (!modal || !modalImage) return;
-
-    let startX = 0;
-    let isDragging = false;
-    let currentIndex = 0;
-
-    // Получаем массив изображений (он уже есть глобально из script.js)
     const images = window.imagesSrc || [];
-    if (!images.length) return;
+    
+    if (!modal || !modalImage || !images.length) return;
+
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipe = 30; // минимальное расстояние свайпа
 
     // Обновляем индекс при открытии
     const originalOpen = window.openSliderModal;
@@ -150,33 +140,37 @@ function getItemsToShow() {
         originalOpen(index);
     };
 
-    // Обработчики свайпов
-    modalImage.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        e.preventDefault();
-        e.stopPropagation();
-    }, { passive: false });
+    // Функции переключения
+    function nextSlide() {
+        if (currentIndex < images.length - 1 && typeof changeImage === 'function') {
+            changeImage(1);
+        }
+    }
 
-    modalImage.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-    }, { passive: false });
+    function prevSlide() {
+        if (currentIndex > 0 && typeof changeImage === 'function') {
+            changeImage(-1);
+        }
+    }
+
+    // Обработчики касаний
+    modalImage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
 
     modalImage.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        const diff = e.changedTouches[0].clientX - startX;
-        const threshold = 50;
-
-        if (Math.abs(diff) > threshold) {
-            let newIndex = currentIndex + (diff < 0 ? 1 : -1);
-            if (newIndex >= 0 && newIndex < images.length && typeof changeImage === 'function') {
-                changeImage(diff < 0 ? 1 : -1);
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > minSwipe) {
+            if (diff < 0) {
+                nextSlide(); // свайп влево
+            } else {
+                prevSlide(); // свайп вправо
             }
         }
-    });
+    }, { passive: true });
 
-    // Не даём клику по картинке закрывать модалку
+    // Не закрывать модалку при клике на картинку
     modalImage.addEventListener('click', (e) => e.stopPropagation());
 })();
