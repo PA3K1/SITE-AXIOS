@@ -461,6 +461,7 @@ html, body {
     text-transform: uppercase;
     font-weight: 500;
     }
+<<<<<<< HEAD
 }
 
 @media (max-width: 450px){
@@ -491,7 +492,8 @@ html, body {
     grid-column: span 1; /* оставляем как есть */
 }
 
-
+/* Если хотим, чтобы две кнопки были по центру во второй строке,
+   можно добавить пустые ячейки слева и справа */
 .mini-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -664,3 +666,6 @@ html, body {
     transform: translateY(-2px);
 }
 }
+=======
+}
+>>>>>>> parent of 6908961 (сделал адаптив для коментариев)
