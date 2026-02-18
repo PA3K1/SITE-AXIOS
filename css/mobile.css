@@ -461,7 +461,6 @@ html, body {
     text-transform: uppercase;
     font-weight: 500;
     }
-<<<<<<< HEAD
 }
 
 @media (max-width: 450px){
@@ -666,6 +665,3 @@ html, body {
     transform: translateY(-2px);
 }
 }
-=======
-}
->>>>>>> parent of 6908961 (сделал адаптив для коментариев)
