@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', function() {
             mobileMenu.classList.add('active');
-            hamburger.style.display = 'none';
+            hamburger.style.display = 'none'; // скрываем гамбургер
         });
     }
 
@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeBtn && mobileMenu) {
         closeBtn.addEventListener('click', function() {
             mobileMenu.classList.remove('active');
-            hamburger.style.display = 'block';
+            hamburger.style.display = 'block'; // показываем гамбургер
         });
     }
 
-    // Закрытие по клику на любую ссылку внутри меню
+    // Закрытие по клику на любую ссылку внутри меню (кроме "Контакты")
     const mobileLinks = document.querySelectorAll('.mobile-nav__link:not(.mobile-nav__dropdown-trigger)');
     mobileLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -44,8 +44,8 @@ function getItemsToShow() {
     return window.innerWidth <= 450 ? 1 : 4;
 }
 
-// ============= МОБИЛЬНЫЙ СЛАЙДЕР СКРИНШОТОВ =============
-(function initMobileSlider() {
+// ============= МОБИЛЬНЫЙ СЛАЙДЕР СКРИНШОТОВ (плавный ползунок и свайп) =============
+(function() {
     if (window.innerWidth > 450) return;
 
     const track = document.querySelector('.track');
@@ -58,125 +58,146 @@ function getItemsToShow() {
     let maxOffset = slideWidth * (totalSlides - 1);
     let currentOffset = 0;
     let startX = 0;
+    let startTransform = 0;
     let isDragging = false;
 
-    function updatePosition(offset) {
-        offset = Math.min(maxOffset, Math.max(0, offset));
+    // Функция обновления позиции по значению ползунка (0-100)
+    function updatePositionFromRange() {
+        const val = parseFloat(range.value);
+        const offset = (val / 100) * maxOffset;
         track.style.transform = `translateX(-${offset}px)`;
         currentOffset = offset;
-        range.value = (offset / maxOffset) * 100;
     }
 
-    function snapToSlide() {
-        const nearestIndex = Math.round(currentOffset / slideWidth);
-        const targetOffset = nearestIndex * slideWidth;
-        track.style.transition = 'transform 0.3s ease';
-        updatePosition(targetOffset);
-        setTimeout(() => {
-            track.style.transition = '';
-        }, 300);
+    // Синхронизация ползунка по смещению
+    function updateRangeFromOffset(offset) {
+        let val = (offset / maxOffset) * 100;
+        val = Math.min(100, Math.max(0, val));
+        range.value = val;
     }
 
-    // Инициализация
-    updatePosition(0);
-    range.value = 0;
+    // Начальная установка
+    updatePositionFromRange();
 
-    // Ползунок
-    range.addEventListener('input', (e) => {
-        if (isDragging) return;
-        const val = parseFloat(e.target.value);
-        const offset = (val / 100) * maxOffset;
-        track.style.transition = 'none';
-        updatePosition(offset);
+    // Обработчик изменения ползунка (плавное перемещение)
+    range.addEventListener('input', () => {
+        if (isDragging) return; // во время свайпа не реагируем
+        updatePositionFromRange();
     });
 
-    // Обновление при изменении размера
+    // Обновление геометрии при изменении размера окна
     window.addEventListener('resize', () => {
         slideWidth = slides[0].offsetWidth;
         maxOffset = slideWidth * (totalSlides - 1);
-        updatePosition(currentOffset);
+        updatePositionFromRange();
     });
 
     // Свайпы
     track.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
+        startTransform = currentOffset;
         isDragging = true;
         track.style.transition = 'none';
+        e.preventDefault();
     });
 
     track.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         e.preventDefault();
-        const diff = (startX - e.touches[0].clientX);
-        let newOffset = currentOffset + diff;
+        const diff = (startX - e.touches[0].clientX) * 1; // чувствительность
+        let newOffset = startTransform + diff;
         newOffset = Math.min(maxOffset, Math.max(0, newOffset));
         track.style.transform = `translateX(-${newOffset}px)`;
-        range.value = (newOffset / maxOffset) * 100;
+        updateRangeFromOffset(newOffset);
+        currentOffset = newOffset;
     });
 
-    track.addEventListener('touchend', () => {
+    track.addEventListener('touchend', (e) => {
         if (!isDragging) return;
         isDragging = false;
-        snapToSlide();
+        track.style.transition = 'transform 0.3s ease';
+        // Определяем ближайший слайд
+        const nearestIndex = Math.round(currentOffset / slideWidth);
+        const targetOffset = nearestIndex * slideWidth;
+        track.style.transform = `translateX(-${targetOffset}px)`;
+        currentOffset = targetOffset;
+        updateRangeFromOffset(targetOffset);
+        setTimeout(() => {
+            track.style.transition = '';
+        }, 300);
     });
 
     track.addEventListener('touchcancel', () => {
         if (!isDragging) return;
         isDragging = false;
-        snapToSlide();
+        track.style.transition = '';
+        track.style.transform = `translateX(-${currentOffset}px)`;
+        updateRangeFromOffset(currentOffset);
     });
 })();
 
-// ============= МОДАЛКА СЛАЙДЕРА =============
-(function initModalSwipe() {
+
+// ---------- МОДАЛКА: поддержка свайпов на мобильных ----------
+(function() {
     if (window.innerWidth > 450) return;
 
-    const modal = document.getElementById('sliderModal');
-    const modalImage = document.getElementById('sliderModalImage');
-    if (!modal || !modalImage) return;
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('sliderModal');
+        const modalImage = document.getElementById('sliderModalImage');
+        // imagesSrc должен быть глобальным из script.js
+        if (!modal || !modalImage || typeof imagesSrc === 'undefined' || !imagesSrc.length) return;
 
-    let startX = 0;
-    let isDragging = false;
-    let currentIndex = 0;
-
-    // Получаем массив изображений (он уже есть глобально из script.js)
-    const images = window.imagesSrc || [];
-    if (!images.length) return;
-
-    // Обновляем индекс при открытии
-    const originalOpen = window.openSliderModal;
-    window.openSliderModal = function(index) {
-        currentIndex = index;
-        originalOpen(index);
-    };
-
-    // Обработчики свайпов
-    modalImage.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        e.preventDefault();
-        e.stopPropagation();
-    }, { passive: false });
-
-    modalImage.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-    }, { passive: false });
-
-    modalImage.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        const diff = e.changedTouches[0].clientX - startX;
+        let modalStartX = 0;
+        let modalCurrentIndex = 0;
+        let modalIsDragging = false;
         const threshold = 50;
 
-        if (Math.abs(diff) > threshold) {
-            let newIndex = currentIndex + (diff < 0 ? 1 : -1);
-            if (newIndex >= 0 && newIndex < images.length && typeof changeImage === 'function') {
-                changeImage(diff < 0 ? 1 : -1);
+        // Сохраняем оригинальную функцию
+        const originalOpen = window.openSliderModal;
+
+        // Переопределяем открытие, чтобы запоминать индекс
+        window.openSliderModal = function(index) {
+            modalCurrentIndex = index;
+            originalOpen(index);
+        };
+
+        // Переключение по направлению
+        function switchSlide(direction) {
+            let newIndex = modalCurrentIndex + direction;
+            if (newIndex >= 0 && newIndex < imagesSrc.length) {
+                openSliderModal(newIndex);
             }
         }
-    });
 
-    // Не даём клику по картинке закрывать модалку
-    modalImage.addEventListener('click', (e) => e.stopPropagation());
+        // События касания на изображении
+        modalImage.addEventListener('touchstart', (e) => {
+            modalStartX = e.touches[0].clientX;
+            modalIsDragging = true;
+            e.preventDefault(); // запрещаем скролл страницы
+            e.stopPropagation(); // запрещаем закрытие модалки
+        }, { passive: false });
+
+        modalImage.addEventListener('touchmove', (e) => {
+            if (!modalIsDragging) return;
+            e.preventDefault();
+        }, { passive: false });
+
+        modalImage.addEventListener('touchend', (e) => {
+            if (!modalIsDragging) return;
+            modalIsDragging = false;
+            const diff = e.changedTouches[0].clientX - modalStartX;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    // свайп вправо -> предыдущий
+                    switchSlide(-1);
+                } else {
+                    // свайп влево -> следующий
+                    switchSlide(1);
+                }
+            }
+        });
+
+        // Предотвращаем всплытие клика, чтобы не закрыть модалку случайно
+        modalImage.addEventListener('click', (e) => e.stopPropagation());
+    });
 })();
