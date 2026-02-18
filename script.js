@@ -570,7 +570,7 @@ if (galery && textGames && dotsContainer) {
     }
 }
 
-// ---------- МОДАЛКА С пролистыванием  ----------
+// ---------- МОДАЛКА СЛАЙДЕРА (с анимацией и свайпами) ----------
 const slides = document.querySelectorAll('.slide');
 const sliderModal = document.getElementById('sliderModal');
 const modalImage = document.getElementById('sliderModalImage');
@@ -685,6 +685,40 @@ window.addEventListener('keydown', (e) => {
         changeImage(1);
     }
 });
+
+// ============= СВАЙПЫ В МОДАЛКЕ (ДЛЯ МОБИЛЬНЫХ) =============
+(function() {
+    const modal = document.getElementById('sliderModal');
+    const modalImage = document.getElementById('sliderModalImage');
+    if (!modal || !modalImage) return;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 50; // минимальное расстояние для срабатывания
+
+    // Начало касания на изображении
+    modalImage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        e.stopPropagation(); // чтобы случайно не закрыть модалку
+    }, { passive: true });
+
+    // Предотвращаем скролл страницы во время свайпа
+    modalImage.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
+
+    // Конец касания
+    modalImage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+
+        if (Math.abs(diffX) > swipeThreshold) {
+            // diffX > 0 – свайп вправо (предыдущее изображение)
+            // diffX < 0 – свайп влево (следующее)
+            changeImage(diffX > 0 ? -1 : 1);
+        }
+    });
+})();
 
 
 // ============= ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ =============
