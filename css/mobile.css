@@ -8,7 +8,8 @@ html, body {
 }
 
     /* Скрываем обычный хедер */
-    .header__container, .container, .control-section, .big-slide-text{
+    .header__container, .container, .control-section, .big-slide-text,.slider-modal__nav--prev,
+.slider-modal__nav--next{
         display: none;
     }
 
@@ -663,8 +664,4 @@ html, body {
     color: #7775D1;
     transform: translateY(-2px);
 }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> parent of 87f986d (проверочный комит)
