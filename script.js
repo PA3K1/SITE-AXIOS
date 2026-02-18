@@ -342,7 +342,7 @@ function showToast(message) {
     }, 3000);
 }
 
-// ---------- СЛАЙДЕР пк с ползунком  ----------
+// ---------- СЛАЙДЕР ----------
 const track = document.getElementById('track');
 const range = document.getElementById('range');
 
@@ -529,8 +529,6 @@ if (galery && textGames && dotsContainer) {
             button.addEventListener('mouseleave', resetAllImages);
         });
     }
-
-
 
     document.addEventListener('DOMContentLoaded', function() {
         const tabs = document.querySelectorAll('.tab');
