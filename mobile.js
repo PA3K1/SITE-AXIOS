@@ -41,31 +41,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalSlides = slides.length;
 
     if (!track || !range || !slides.length) {
-        console.log('Слайдер не найден');
         return;
     }
 
-    console.log('Найдено слайдов:', totalSlides);
+function updateSlider() {
+    const firstSlide = track.children[0];
+    if (!firstSlide) return;
 
-    function updateSlider() {
-        const firstSlide = track.children[0];
-        if (!firstSlide) return;
+    const slideWidth = firstSlide.offsetWidth;
+    const slideMargin = parseFloat(getComputedStyle(firstSlide).marginLeft) || 0;
+    const fullMargin = slideMargin * 1;
+    const stepWidth = slideWidth + fullMargin;
 
-        const slideWidth = firstSlide.offsetWidth;
-        const marginRight = parseFloat(getComputedStyle(firstSlide).marginRight) || 0;
-        const stepWidth = slideWidth + marginRight;
+    let maxOffset;
+    if (window.innerWidth <= 450) {
 
-        let maxOffset;
-        if (window.innerWidth <= 450) {
-            maxOffset = (totalSlides - 1) * stepWidth;
-        } else {
-            maxOffset = stepWidth;
-        }
-
-        const val = parseInt(range.value, 10);
-        const offset = (val / 100) * maxOffset;
-        track.style.transform = `translateX(-${Math.round(offset)}px)`;
+        maxOffset = (totalSlides - 1) * stepWidth;
+    } else {
+        maxOffset = stepWidth;
     }
+
+    const val = parseInt(range.value, 10);
+    const offset = (val / 100) * maxOffset;
+    track.style.transform = `translateX(-${Math.round(offset)}px)`;
+}
 
     range.addEventListener('input', updateSlider);
     window.addEventListener('resize', updateSlider);
@@ -78,16 +77,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let swiperInstance = null;
 
     if (!sliderModal || !modalClose || !swiperWrapper) {
-        console.log('Элементы модалки не найдены');
         return;
     }
 
-    // Собираем изображения из слайдов
     const images = [];
     slides.forEach(slide => {
         const img = slide.querySelector('img:first-child');
         if (img) {
-            console.log('Найдено изображение:', img.src);
             images.push({ 
                 src: img.src, 
                 alt: img.alt || 'Скриншот' 
@@ -95,10 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    console.log('Загружено изображений:', images.length);
 
     function openModal(index) {
-        console.log('Открытие модалки с индексом:', index);
         
         if (images.length === 0) {
             alert('Нет изображений для отображения');
@@ -110,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
             swiperInstance = null;
         }
 
-        // Очищаем и заполняем wrapper
         swiperWrapper.innerHTML = '';
         
         images.forEach(imgData => {
@@ -120,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             imgElem.src = imgData.src;
             imgElem.alt = imgData.alt;
             imgElem.onerror = function() {
-                console.error('Ошибка загрузки:', imgData.src);
+
             };
             slideDiv.appendChild(imgElem);
             swiperWrapper.appendChild(slideDiv);
@@ -131,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(() => {
             if (typeof Swiper !== 'undefined') {
-                console.log('Инициализация Swiper с индексом:', index);
                 swiperInstance = new Swiper('#modalSwiper', {
                     initialSlide: index,
                     speed: 300,
@@ -148,29 +140,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     touchAngle: 45,
                     grabCursor: true,
                     on: {
-                        init: function() {
-                            console.log('Swiper инициализирован');
-                        }
+                        
                     }
                 });
-            } else {
-                console.error('Swiper не загружен!');
-                alert('Ошибка загрузки Swiper');
             }
         }, 100);
     }
 
     function closeModal() {
-        console.log('Закрытие модалки');
         sliderModal.classList.remove('active');
         document.body.classList.remove('modal-open');
     }
 
-    // Добавляем обработчики на слайды
     slides.forEach((slide, idx) => {
         slide.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('Клик по слайду', idx);
             openModal(idx);
         });
     });

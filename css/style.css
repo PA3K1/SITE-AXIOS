@@ -116,10 +116,12 @@ html, body {
     opacity: 0;
     transition: left 0.3s ease, opacity 0.3s ease;
 }
+
 .dropdown-list a:hover::before {
     left: -10px;
     opacity: 1;
 }
+
 .container {
     display: flex;
     align-items: center;
@@ -128,6 +130,7 @@ html, body {
     padding-top: 40px;
     
 }
+
 .logo-ring {
     width: 440px;
     height: 440px;
@@ -138,6 +141,7 @@ html, body {
     align-items: center;
     margin-right: 50px;
 }
+
 .logo-text {
     font-size: 60px;
     font-weight: bold;
@@ -315,17 +319,13 @@ html, body {
     line-height: 1.4;
 }
 
-
-
 /*ЭТО СЛИТИ ДЛЯ СЛАЙДЕРА*/
-
 .big-slide-text {
     display: flex;
     justify-content: center;
     font-size: 40px;
     font-weight: 600;
 }
-
 
 .games-slider-container {
     padding: 20px 20px;
@@ -427,9 +427,7 @@ html, body {
     transition: transform 0.5s;
 }
 
-
 /* СТИЛИ ДЛЯ КАРТОЧЕК С ЦЕНАМИ */
-
 .big-price-text{
     padding-top: 115px;
     font-weight: 600;
@@ -451,8 +449,6 @@ html, body {
     justify-content: center;
     position: relative;
 }
-
-
 
 .text-linear {
     display: flex;
@@ -533,9 +529,6 @@ html, body {
     border: 3px solid #7775D1; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-
-
 
 .mini-container {
     padding-top: 100px;
@@ -653,7 +646,6 @@ html, body {
     display: block;
 }
 
-
 .form__header {
     width: 320px;
     height: 49px;
@@ -754,9 +746,7 @@ button:focus {
     opacity: .3;
     transition: .12s;
 }
-
-
-
+/* cтили для модалочки с оплатой */
 .windoy__content{
     max-width: 400px;
     min-height: 474px;
@@ -790,7 +780,6 @@ button:focus {
     opacity: .3;
     transition: .12s;
 }
-
 
 .image_focus {
     box-sizing: border-box; 
@@ -858,8 +847,6 @@ button:focus {
     border: 3px solid #7775D1 !important;
     filter: brightness(0.9) !important;
 }
-
-
 
 /* СТИЛИ ДЛЯ КОМЕНТАРИЕВ */
 .comments {
@@ -966,7 +953,7 @@ button:focus {
     font-size: 17px;
     font-weight: 600;
     padding: 15px 20px;
-    resize: none; /* запрет растягивания */
+    resize: none;
 }
 
 .comments__form-input:focus {
@@ -994,8 +981,8 @@ button:focus {
 .container__button-type{
     display: flex;
     justify-content: center;
-    text-align: center; /* для старых браузеров */
-    margin: 20px 0; /* небольшие отступы сверху и снизу */
+    text-align: center;
+    margin: 20px 0;
 }
 
 .comments__form-submit:hover {
@@ -1003,12 +990,6 @@ button:focus {
     color: #7775D1;
 }
 
-
-
-
-
-
-/* Кнопка удалить */
 .delete-comment {
     background: none;
     border: none;
@@ -1069,9 +1050,8 @@ button:focus {
 
 
 /*СТИЛИ ДЛЯ МОДАЛКИ СЛАЙДЕРА*/
-/* Слайдер */
 .slider {
-    margin: 0 auto; /* выравнивание по центру */
+    margin: 0 auto;
     max-width: 1300px;
     width: 100%;
     background: #15171D;
@@ -1117,7 +1097,6 @@ button:focus {
     background-color: #1A1D26;
 }
 
-/* Затемнение при наведении */
 .slide::after {
     content: '';
     position: absolute;
@@ -1136,13 +1115,11 @@ button:focus {
     opacity: 1;
 }
 
-/* Рамка при наведении */
 .slide:hover {
     outline: 2px solid #7775D1;
     outline-offset: -2px;
 }
 
-/* Иконка лупы */
 .slide .search-icon {
     position: absolute;
     top: 50%;
@@ -1215,7 +1192,7 @@ input[type=range]::-moz-range-thumb {
     cursor: pointer;
 }
 
-/* ---------- МОДАЛЬНОЕ ОКНО СЛАЙДЕРА (SWIPER) ---------- */
+/* ---------- МОДАЛЬНОЕ ОКНО СЛАЙДЕРА (SWIPER) -------- */
 .slider-modal {
     display: flex;
     position: fixed;
@@ -1300,7 +1277,7 @@ input[type=range]::-moz-range-thumb {
     margin: 0 auto;
 }
 
-/* Стрелки навигации */
+/* Стрелки навигации swiper */
 .swiper-button-prev,
 .swiper-button-next {
     color: white !important;
@@ -1335,7 +1312,7 @@ input[type=range]::-moz-range-thumb {
     font-weight: bold;
 }
 
-/* Отключаем стрелки если они неактивны */
+/* Отключаем стрелки если они неактивны swiper */
 .swiper-button-disabled {
     opacity: 0.3 !important;
     pointer-events: none;
@@ -1344,17 +1321,6 @@ input[type=range]::-moz-range-thumb {
 body.modal-open {
     overflow: hidden;
 }
-
-
-
-@media (max-width: 450px) {
-    .swiper-button-prev,
-    .swiper-button-next {
-        display: none !important;
-    }
-}
-
-/*СТИЛИ ДЛЯ ВЫПАДАЮЩЕГО СПИСКА */
 
         .wrapper {
             max-width: 1280px;
@@ -1388,8 +1354,8 @@ body.modal-open {
             cursor: pointer;
             transition: all 0.2s ease;
             color: #e5e9f0;
-            position: relative;      /* для управления z-index */
-            z-index: 2;              /* вкладка поверх ответа */
+            position: relative;     
+            z-index: 2;            
         }
         .tab:hover {
             background: #2e3641;
@@ -1444,16 +1410,12 @@ body.modal-open {
             font-weight: 600;
         }
 
-
-
-
-
         /* Блок ответа */
         .info {
             max-height: 0;
-            overflow: hidden;               /* скрыто при закрытии */
+            overflow: hidden;
             transition: max-height 0.4s ease-out, opacity 0.3s ease, margin 0.3s, padding 0.3s;
-            background: #1a1e24;            /* фон ответа */
+            background: #1a1e24;
             border-radius: 0 0 16px 16px;
             margin: 0;
             padding: 0 20px;
@@ -1462,32 +1424,31 @@ body.modal-open {
             line-height: 1.6;
             box-sizing: border-box;
             position: relative;
-            z-index: 1;                      /* ответ под вкладкой */
+            z-index: 1;
         }
         .info.open {
             max-height: 300px;
             opacity: 1;
-            overflow: visible;                /* чтобы видеть часть, заходящую под вкладку */
-            margin-top: -40px;                 /* подъём ответа на половину высоты вкладки */
-            padding: 60px 40px;      /* верхний отступ равен величине подъёма, чтобы текст не налезал на вопрос */
+            overflow: visible; 
+            margin-top: -40px;
+            padding: 60px 40px;
         }
 
-        /* Добавляем отступ между разными парами */
+
         .tab:not(:last-of-type) {
             margin-bottom: 0;
         }
         .info:not(.open) + .tab {
-            margin-top: 20px;   /* отступ между закрытыми парами */
+            margin-top: 20px;
         }
         .info.open + .tab {
-            margin-top: 0;      /* если ответ открыт, следующий таб примыкает непосредственно (или нужен другой отступ) – можно настроить */
+            margin-top: 0;
         }
-        /* Чтобы после открытого ответа следующий вопрос не прилипал слишком близко, можно добавить отступ снизу самому ответу? */
         .info.open {
-            margin-bottom: 20px;  /* отступ после открытого ответа до следующего вопроса */
+            margin-bottom: 20px;
         }
 
-        /* Блок контактов */
+        /* стили для Блока контактов */
         .contacts {
             text-align: center;
         }
@@ -1562,9 +1523,9 @@ body.modal-open {
         .name__project {
         background-color: #1A1D26;
         width: 100%;
-        height: 40px; /* как было в предыдущем коде, но можно указать */
-        margin: 0; /* убрать внешние отступы */
-        padding: 0; /* убрать внутренние отступы */
+        height: 40px;
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
 }
 

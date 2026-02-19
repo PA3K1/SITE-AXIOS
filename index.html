@@ -57,7 +57,7 @@
 </header>
 
 <!-- Модальное окно ВХОД -->
-<div class="modal"> <!-- ДОБАВЛЕНО: обёртка -->
+<div class="modal">
     <div class="modal__content">
         <div class="modal__cont-1">
             <p class="sub__title">ВХОД В КАБИНЕТ</p>
@@ -186,7 +186,7 @@
     </div>
 </div>
 
-<!-- ОТДЕЛ С СЛАЙДЕРОМ   -->
+<!-- - - -  ОТДЕЛ С СЛАЙДЕРОМ ----  -->
 <div>
     <h2 class="big-slide-text">ВСЕ ИГРЫ В ОДНОЙ ПОДПИСКЕ</h2>
     <h2 class="big-slide-text-mobile">ВСЕ ДОСТУПНЫЕ <br> ИГРЫ </h2>
@@ -202,7 +202,7 @@
 </div>
 
 
-<!-- ОТДЕЛ С КАРТОЧКАМИ   -->
+<!-- - - - -- ОТДЕЛ С КАРТОЧКАМИ  -->
 
 <h3 class="big-slide-text big-price-text">ТАРИФЫ (ТЕСТОВЫЕ)</h3>
 <h3 class="big-mobile-text-on-mobile">ПРИОБРЕСТИ</h3>
@@ -286,8 +286,8 @@
     </div>
 </div>
 
-    <div class="modal modal--auto">  <!-- Добавь класс modal -->
-    <div class="modal__content-3">  <!-- Добавь обёртку для контента -->
+    <div class="modal modal--auto">
+    <div class="modal__content-3">
         <p class="focus-modal-text">ВЫБЕРИТЕ СПОСОБ</p>
         <img class="image_focus" height="90px" src="img/MASTER-CARD.jpg" alt="">
         <div class="modal-focus-link-container">
@@ -313,6 +313,7 @@
 <h5 class="big-slide-text big-price-text">ОТЗЫВЫ ПОЛЬЗОВАТЕЛЕЙ</h5>
 <h5 class="big-mobile-text-on-mobile">ОТЗЫВЫ ПОЛЬЗОВАТЕЛЕЙ</h5>
 <div class="comments">
+    
     <!-- 3 видимых комментария -->
     <div class="comments__item comments__item--visible">
         <div class="comments__sidebar"></div>
@@ -430,6 +431,7 @@
 </div>
 
 <h6 class="big-slide-text big-price-text">СКРИНШОТЫ ПРОГРАММЫ</h6>
+<h6 class="big-mobile-text-on-mobile">СКРИНШОТЫ ПРОГРАММЫ</h6>
 <div class="slider">
     <div class="viewport">
         <div class="track" id="track">
@@ -456,7 +458,7 @@
     </div>
 </div>
 
-<!-- Новая модалка со Swiper (только одна!) -->
+<!-- модалка со Swiper -->
 <div class="slider-modal" id="sliderModal">
     <span class="slider-modal__close" id="sliderModalClose">&times;</span>
     <div class="modal-swiper">
@@ -470,6 +472,7 @@
 
 
     <h7 class="big-slide-text big-price-text">ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</h7>
+        <h7 class="big-mobile-text-on-mobile">ЧАСТО <br> ЗАДАВАЕМЫЕ ВОПРОСЫ</h7>
         <section class="ques">
         <div class="wrapper">
             <div class="quesWrap">
@@ -518,7 +521,7 @@
         </div>
     </section>
 
-    <!-- КОНТАКТЫ -->
+    <!-- 2 соц-сети дс и вк  -->
     <div class="contacts">
         <div class="wrapper">
             <a href="https://discord.com/invite/ZzdVbd3Ssr" target="_blank">
@@ -549,13 +552,15 @@
         <p class="name__project-text">© 2026 axios macro</p>
     </div>
 
-<script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 
+
+
+<script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 <!-- Контейнер, в котором появится кнопка виджета -->
 <div id="vk_community_messages"></div>
 
 <script type="text/javascript">
-  // Инициализация виджета
+    // Инициализация виджета
     VK.Widgets.CommunityMessages("vk_community_messages", 236032366, {
     // Дополнительные настройки (по желанию)
     expanded: 1,               // 1 – кнопка видна сразу, 0 – скрыта

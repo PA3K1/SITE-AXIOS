@@ -496,18 +496,15 @@ if (galery && textGames && dotsContainer) {
                     const openTab = document.querySelector(`.tab[data-tab="${openTabId}"]`);
                     if (openTab) openTab.classList.remove('active');
                 });
-
                 info.classList.add('open');
                 this.classList.add('active');
             });
         });
     });
-
     createElements();
     setTimeout(() => updateSliderGames(false), 50);
     setupImageHighlight();
     startAutoPlay();
-
     window.addEventListener('resize', () => updateSliderGames(false));
     
     const container = document.querySelector('.games-slider-container');
