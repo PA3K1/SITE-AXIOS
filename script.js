@@ -68,7 +68,6 @@ function setupMasterCardSelection() {
 function setupVideoButtons() {
     const videoButtons = document.querySelectorAll('.mini-text');
     const videoFrame = document.getElementById('ax-mini');
-    const videoContainer = document.querySelector('.container-mini-video');
     
     const videoUrls = {
         'rainbow-six': 'https://www.youtube.com/embed/HqpjPnctPtY',
@@ -117,7 +116,6 @@ let users = [
     {email: "user@test.com", password: "qwerty"}
 ];
 
-
 function checkCaptcha(inputValue) {
     return inputValue === "6138B";
 }
@@ -139,13 +137,11 @@ function updateHeader() {
     const mobileActions = document.querySelector('.mobile-actions');
 
     if (loggedInUser) {
-        //обновляем десктоп панель
         headerOpen.innerHTML = `
             <span>${loggedInUser}</span>
             <a class="header__link open__modal" onclick="logoutUser()" href="#">ВЫХОД</a>
         `;
 
-        // Обновляем мобильную панель
         if (mobileActions) {
             mobileActions.innerHTML = `
                 <span class="header__link" style="color: white;">${loggedInUser}</span>
@@ -158,13 +154,11 @@ function updateHeader() {
         if (commentButton) commentButton.style.display = 'block';
 
     } else {
-        // Пользователь не вошел
         headerOpen.innerHTML = `
             <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
             <a class="header__link open__modal" onclick="openModal(event)" href="">ВХОД</a>
         `;
 
-        // Восстанавливаем мобильную панель
         if (mobileActions) {
             mobileActions.innerHTML = `
                 <a class="header__link" onclick="openBodal(event)" href="#">Регистрация</a>
@@ -237,8 +231,6 @@ function handleLogin(event) {
     }
 }
 
-
-
 // ============= КНОПКА "ПОКАЗАТЬ БОЛЬШЕ" =============
 const showBtn = document.getElementById('commentsShowMore');
 if (showBtn) {
@@ -257,28 +249,23 @@ if (showBtn) {
     });
 }
 
-// ============= СИСТЕМА КОММЕНТАРИЕВ  =============
-
+// ============= СИСТЕМА КОММЕНТАРИЕВ =============
 function addComment() {
     const commentText = document.getElementById('commentText');
     const text = commentText.value.trim();
     const user = localStorage.getItem('loggedInUser');
-    
     
     if (text.length < 5) {
         alert('Минимум 5 символов!');
         return;
     }
     
-    // Создаем элемент комментария
     const commentDiv = document.createElement('div');
     commentDiv.className = 'comments__item comments__item--visible';
     
-    // Получаем текущую дату и время
     const now = new Date();
     const dateStr = now.toLocaleString('ru-RU');
     
-    // HTML комментария с кнопкой удалить (ТОЛЬКО ДЛЯ НОВЫХ КОММЕНТАРИЕВ)
     commentDiv.innerHTML = `
         <div class="comments__sidebar"></div>
         <div class="comments__header">
@@ -290,14 +277,11 @@ function addComment() {
     `;
     
     const commentsContainer = document.querySelector('.comments');
-
     const firstComment = document.querySelector('.comments__item');
     
     if (firstComment) {
-        // Добавляем ПЕРЕД первым комментарием (САМЫЙ ВЕРХ)
         commentsContainer.insertBefore(commentDiv, firstComment);
     } else {
-        // Если комментариев нет, добавляем перед сообщением об авторизации
         const authMessage = document.getElementById('authMessage');
         if (authMessage) {
             commentsContainer.insertBefore(commentDiv, authMessage);
@@ -306,9 +290,7 @@ function addComment() {
         }
     }
     
-    // Очищаем поле
     commentText.value = '';
-    
     showToast('✓ Комментарий добавлен');
 }
 
@@ -323,48 +305,19 @@ function setupCommentForm() {
     }
 }
 
-
-// Функция для показа всплывающего сообщения
 function showToast(message) {
-    // Удаляем старое уведомление если есть
     const oldToast = document.querySelector('.comment-toast');
     if (oldToast) oldToast.remove();
     
-    // Создаем новое уведомление
     const toast = document.createElement('div');
     toast.className = 'comment-toast';
     toast.textContent = message;
     document.body.appendChild(toast);
     
-    // Удаляем через 3 секунды
     setTimeout(() => {
         toast.remove();
     }, 3000);
 }
-
-// ---------- СЛАЙДЕР ----------
-const track = document.getElementById('track');
-const range = document.getElementById('range');
-
-function updateSlider() {
-    const firstSlide = track.children[0];
-    if (!firstSlide) return;
-
-    const slideWidth = firstSlide.offsetWidth;
-    const marginRight = parseFloat(getComputedStyle(firstSlide).marginRight) || 0;
-    const stepWidth = slideWidth + marginRight;
-    const maxOffset = stepWidth;
-
-    const val = parseInt(range.value, 10);
-    const offset = (val / 100) * maxOffset;
-
-    track.style.transform = `translateX(-${Math.round(offset)}px)`;
-}
-
-range.addEventListener('input', updateSlider);
-window.addEventListener('resize', updateSlider);
-updateSlider();
-
 
 // ============= СЛАЙДЕР ИГР =============
 const gamesData = [
@@ -381,7 +334,6 @@ const galery = document.getElementById('galery');
 const textGames = document.getElementById('text-games');
 const dotsContainer = document.getElementById('dots');
 
-// Проверяем, есть ли слайдер на странице
 if (galery && textGames && dotsContainer) {
     const totalRealItems = gamesData.length;
     let itemsToShow = window.innerWidth <= 450 ? 1 : 4;
@@ -390,20 +342,18 @@ if (galery && textGames && dotsContainer) {
     let isTransitioning = false;
     let autoPlayInterval;
 
-    // Обновление количества видимых карточек при изменении размера окна
     window.addEventListener('resize', () => {
         const newItemsToShow = window.innerWidth <= 450 ? 1 : 4;
         const newGap = window.innerWidth <= 450 ? 0 : 20;
         if (newItemsToShow !== itemsToShow || newGap !== gap) {
             itemsToShow = newItemsToShow;
             gap = newGap;
-            // корректировка currentIndex
             if (currentIndex < totalRealItems) {
                 currentIndex = totalRealItems;
             } else if (currentIndex >= totalRealItems * 2) {
                 currentIndex = totalRealItems * 2 - 1;
             }
-            updateSlider(false);
+            updateSliderGames(false);
         }
     });
 
@@ -432,7 +382,7 @@ if (galery && textGames && dotsContainer) {
         }
     }
 
-    function updateSlider(withTransition = true) {
+    function updateSliderGames(withTransition = true) {
         if (withTransition) {
             galery.classList.add('transition');
             textGames.classList.add('transition');
@@ -460,11 +410,11 @@ if (galery && textGames && dotsContainer) {
         
         if (currentIndex < totalRealItems) {
             currentIndex += totalRealItems;
-            updateSlider(false);
+            updateSliderGames(false);
         }
         if (currentIndex >= totalRealItems * 2) {
             currentIndex -= totalRealItems;
-            updateSlider(false);
+            updateSliderGames(false);
         }
     }
 
@@ -474,7 +424,7 @@ if (galery && textGames && dotsContainer) {
         if (isTransitioning) return;
         isTransitioning = true;
         currentIndex = index;
-        updateSlider();
+        updateSliderGames();
     }
 
     function nextSlide() {
@@ -553,13 +503,12 @@ if (galery && textGames && dotsContainer) {
         });
     });
 
-    // Инициализация слайдера
     createElements();
-    setTimeout(() => updateSlider(false), 50);
+    setTimeout(() => updateSliderGames(false), 50);
     setupImageHighlight();
     startAutoPlay();
 
-    window.addEventListener('resize', () => updateSlider(false));
+    window.addEventListener('resize', () => updateSliderGames(false));
     
     const container = document.querySelector('.games-slider-container');
     if (container) {
@@ -568,134 +517,15 @@ if (galery && textGames && dotsContainer) {
     }
 }
 
-// ---------- МОДАЛКА С пролистыванием  ----------
-const slides = document.querySelectorAll('.slide');
-const sliderModal = document.getElementById('sliderModal');
-const modalImage = document.getElementById('sliderModalImage');
-const modalClose = document.getElementById('sliderModalClose');
-const modalPrev = document.getElementById('sliderModalPrev');
-const modalNext = document.getElementById('sliderModalNext');
-
-// Массив src картинок
-const imagesSrc = [];
-slides.forEach(slide => {
-    const img = slide.querySelector('img:first-child');
-    if (img) imagesSrc.push(img.src);
-});
-
-let currentIndex = 0;
-let isAnimating = false;
-
-// Обновление состояния стрелок (disabled)
-function updateNavButtons() {
-    modalPrev.classList.toggle('slider-modal__nav--disabled', currentIndex === 0);
-    modalNext.classList.toggle('slider-modal__nav--disabled', currentIndex === imagesSrc.length - 1);
-}
-
-// Открыть модалку слайдера
-function openSliderModal(index) {
-    if (index < 0 || index >= imagesSrc.length) return;
-    currentIndex = index;
-    modalImage.src = imagesSrc[currentIndex];
-    sliderModal.classList.add('active');
-    document.body.classList.add('modal-open');
-    updateNavButtons();
-}
-
-// Закрыть модалку слайдера
-function closeSliderModal() {
-    sliderModal.classList.remove('active');
-    document.body.classList.remove('modal-open');
-}
-
-// Анимация смены изображения
-function changeImage(direction) {
-    if (isAnimating) return;
-    let newIndex = currentIndex + direction;
-    if (newIndex < 0 || newIndex >= imagesSrc.length) return;
-
-    isAnimating = true;
-
-    // 1. Текущая картинка уезжает
-    const offsetOut = direction > 0 ? '-100vw' : '100vw';
-    modalImage.style.transition = 'transform 0.3s ease';
-    modalImage.style.transform = `translateX(${offsetOut})`;
-
-    setTimeout(() => {
-        // 2. Меняем картинку
-        currentIndex = newIndex;
-        modalImage.src = imagesSrc[currentIndex];
-        updateNavButtons();
-
-        // 3. Мгновенно ставим новую картинку с противоположной стороны (без анимации)
-        modalImage.style.transition = 'none';
-        const offsetIn = direction > 0 ? '100vw' : '-100vw';
-        modalImage.style.transform = `translateX(${offsetIn})`;
-
-        // Небольшая задержка, чтобы браузер применил позицию без transition
-        setTimeout(() => {
-            // 4. Анимируем въезд в центр
-            modalImage.style.transition = 'transform 0.3s ease';
-            modalImage.style.transform = 'translateX(0)';
-
-            // 5. Разблокируем кнопки после окончания анимации въезда
-            setTimeout(() => {
-                isAnimating = false;
-                modalImage.style.transition = 'none';
-            }, 300);
-        }, 20);
-    }, 300);
-}
-
-// Клик по слайду
-slides.forEach((slide, idx) => {
-    slide.addEventListener('click', () => {
-        openSliderModal(idx);
-    });
-});
-
-// Закрытие
-modalClose.addEventListener('click', closeSliderModal);
-sliderModal.addEventListener('click', (e) => {
-    if (e.target === sliderModal) closeSliderModal();
-});
-
-// Стрелки с проверкой на disabled
-modalPrev.addEventListener('click', () => {
-    if (!modalPrev.classList.contains('slider-modal__nav--disabled')) {
-        changeImage(-1);
-    }
-});
-modalNext.addEventListener('click', () => {
-    if (!modalNext.classList.contains('slider-modal__nav--disabled')) {
-        changeImage(1);
-    }
-});
-
-// Клавиши
-window.addEventListener('keydown', (e) => {
-    if (!sliderModal.classList.contains('active')) return;
-    if (e.key === 'Escape') closeSliderModal();
-    if (e.key === 'ArrowLeft' && !modalPrev.classList.contains('slider-modal__nav--disabled')) {
-        changeImage(-1);
-    }
-    if (e.key === 'ArrowRight' && !modalNext.classList.contains('slider-modal__nav--disabled')) {
-        changeImage(1);
-    }
-});
-
-
 // ============= ОСНОВНАЯ ИНИЦИАЛИЗАЦИЯ =============
 function initializeAll() {
-    updateHeader(); // обновляет шапку и показывает/скрывает форму комментариев
+    updateHeader();
     
     document.querySelector('.modal form').addEventListener('submit', handleLogin);
     document.querySelector('.modal--registration form').addEventListener('submit', handleRegistration);
-    updateNavButtons();
     setupMasterCardSelection();
     setupVideoButtons();
     setupCommentForm();
 }
 
-// Запуск при загрузке
 window.onload = initializeAll;

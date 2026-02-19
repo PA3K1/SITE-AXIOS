@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     
 </head>
@@ -428,51 +429,44 @@
     </button>
 </div>
 
-
 <h6 class="big-slide-text big-price-text">СКРИНШОТЫ ПРОГРАММЫ</h6>
 <div class="slider">
-        <div class="viewport">
-            <div class="track" id="track">
-                <div class="slide">
-                    <img src="img/1 programs.avif" alt="Программа 1">
-                    <div class="search-icon">
-                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="img/2 programs.avif" alt="Программа 2">
-                    <div class="search-icon">
-                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="img/3 programs.avif" alt="Программа 3">
-                    <div class="search-icon">
-                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="img/4 programs.avif" alt="Программа 4">
-                    <div class="search-icon">
-                        <img src="img/free-icon-search-11741045.png" alt="Поиск">
-                    </div>
-                </div>
+    <div class="viewport">
+        <div class="track" id="track">
+            <div class="slide" data-index="0">
+                <img src="img/1 programs.avif" alt="Скриншот 1">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+            <div class="slide" data-index="1">
+                <img src="img/2 programs.avif" alt="Скриншот 2">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+            <div class="slide" data-index="2">
+                <img src="img/3 programs.avif" alt="Скриншот 3">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+            <div class="slide" data-index="3">
+                <img src="img/4 programs.avif" alt="Скриншот 4">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
             </div>
         </div>
-        <div class="range-wrap">
-            <input type="range" id="range" min="0" max="100" value="0">
-        </div>
     </div>
+    <div class="range-wrap">
+        <input type="range" id="range" min="0" max="100" value="0">
+    </div>
+</div>
 
-    <!-- Модальное окно для слайдера (переименовано) -->
-    <div class="slider-modal" id="sliderModal">
-        <span class="slider-modal__close" id="sliderModalClose">&times;</span>
-        <span class="slider-modal__nav slider-modal__nav--prev" id="sliderModalPrev">&#10094;</span>
-        <span class="slider-modal__nav slider-modal__nav--next" id="sliderModalNext">&#10095;</span>
-        <div class="slider-modal__content">
-            <img id="sliderModalImage" src="" alt="">
+<!-- Новая модалка со Swiper (только одна!) -->
+<div class="slider-modal" id="sliderModal">
+    <span class="slider-modal__close" id="sliderModalClose">&times;</span>
+    <div class="modal-swiper">
+        <div class="swiper" id="modalSwiper">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
+</div>
 
 
     <h7 class="big-slide-text big-price-text">ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</h7>
@@ -575,6 +569,7 @@
 
 <script src="script.js" defer></script>
 <script src="mobile.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 
 </html>
