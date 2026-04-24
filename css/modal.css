@@ -1,0 +1,197 @@
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__content {
+    background: #1E2026;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    min-height: 370px;
+    z-index: 1001;
+}
+
+.modal__cont-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+}
+
+.modal__close {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    transition: transform 0.2s;
+}
+
+.modal__close:hover {
+    transform: rotate(90deg);
+}
+
+.sub__title {
+    color: white;
+    font-size: 18px;
+    width: 100%;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.form__header {
+    display: flex;
+    justify-content: center;
+    width: 320px;
+    height: 49px;
+    background-color: #2d3138;
+    border: 0;
+    border-radius: 5px;
+    padding: 14px 20px;
+    font-size: 16px;
+    color: white;
+    border: 1px solid rgba(128, 128, 128, 0.26);  /* ← добавили */
+}
+
+.form__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Капча */
+.form__content__captha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.captha {
+    width: 140px;
+    height: 49px;
+    object-fit: cover; 
+    border-radius: 4px;
+    display: block;
+}
+
+.form__captha {
+    width: 160px;
+    height: 49px;
+}
+
+/* Кнопки */
+.entrance__button {
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    padding: 12px 20px;
+    background-color: var(--color-accent);
+    border-radius: 50px;
+    border: 0;
+    height: 52px;
+    width: 350px;
+    transition: all 0.3s;
+    margin-right: 10px;
+}
+
+.entrance__button:hover {
+    background-color: white;
+    color: var(--color-accent);
+}
+
+.entrance__button-2 {
+    width: 320px;
+    height: 49px;
+}
+
+.forget__button {
+    color: #4d5057;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;          /* по умолчанию без подчёркивания */
+}
+
+.forget__button:hover {
+    text-decoration: underline;    /* подчёркивание при наведении */
+}
+
+.header__block-entrance {
+    padding: 37px 35px;
+}
+
+.header__forget-block {
+    padding-left: 42px;
+}
+
+input:focus, button:focus {
+    outline: none;
+}
+
+/* Стили модалки оплаты */
+.modal--auto .modal__content-3 {
+    border: 2px solid var(--color-accent);
+    padding: 20px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1E2026;
+    border-radius: 10px;
+    max-width: 400px;
+    min-height: 370px;
+}
+
+.focus-modal-text {
+    font-size: 22px;
+    font-weight: 600;
+    padding: 0 0 0 20px;
+}
+
+.image_focus {
+    border-radius: 9px;
+    margin-left: 20px;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+
+.image_focus.selected {
+    border-color: var(--color-accent) !important;
+}
+
+.modal-focus-link-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-accent);
+    width: 360px;
+    height: 55px;
+    border-radius: 26px;
+    margin-top: 80px;
+}
+
+.modal-focus-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.modal-focus-link.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+}

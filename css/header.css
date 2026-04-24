@@ -1,0 +1,115 @@
+.header__container {
+    display: flex;
+    justify-content: center;
+    gap: 55px;
+    margin: 45px 0 0 120px;
+}
+
+.header__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 19px;
+    transition: all 0.2s ease;
+}
+
+.header__link:hover {
+    color: var(--color-text);
+}
+
+.header__open {
+    display: flex;
+    gap: 50px;
+    margin-left: 55px;
+}
+
+.open__modal {
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-accent);
+    border-radius: 30px;
+    padding: 7px 55px;
+    font-size: 22px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.open__modal:hover {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: flex;
+}
+
+.dropdown-trigger {
+    cursor: pointer;
+    color: var(--color-text-muted);
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-bg);
+    padding: 20px 0;
+    min-width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    z-index: 10;
+}
+
+.dropdown:hover .dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-list a {
+    display: block;
+    padding: 8px 0;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: transform 0.3s ease, color 0.2s ease;
+    position: relative;
+}
+
+.dropdown-list a:hover {
+    color: white;
+    transform: translateX(10px);
+}
+
+.dropdown-list a::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 3px;
+    background-color: white;
+    opacity: 0;
+    transition: left 0.3s ease, opacity 0.3s ease;
+}
+
+.dropdown-list a:hover::before {
+    left: -10px;
+    opacity: 1;
+}
+
+/* Гамбургер и мобильное меню стилизуются в mobile.css */
+.hamburger {
+    display: none;
+}
+.mobile-menu {
+    display: none;
+}
+.mobile-actions {
+    display: none;
+}

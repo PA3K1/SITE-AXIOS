@@ -1,0 +1,32 @@
+.contacts {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.contacts .wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.contacts a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    height: 50px;
+    background-color: var(--color-surface);
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: background-color 0.2s;
+}
+
+.contacts a:hover {
+    background-color: var(--color-accent);
+}
+
+.contacts img {
+    width: 104px;
+    height: 52px;
+    filter: brightness(0) invert(1);
+}
