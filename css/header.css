@@ -103,7 +103,6 @@
     opacity: 1;
 }
 
-/* Гамбургер и мобильное меню стилизуются в mobile.css */
 .hamburger {
     display: none;
 }
@@ -112,4 +111,16 @@
 }
 .mobile-actions {
     display: none;
+}
+
+.header__user-email {
+    font-size: 18px;        
+    color: #ffffff85;
+    opacity: 3;     
+    font-weight: 400;        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-right: 15px;  
 }

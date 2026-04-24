@@ -26,7 +26,6 @@ App.initScreenshotsSlider = function() {
     window.addEventListener('resize', updateSlider);
     updateSlider();
 
-    // Swiper modal
     const sliderModal = document.getElementById('sliderModal');
     const modalClose = document.getElementById('sliderModalClose');
     const swiperWrapper = document.querySelector('#modalSwiper .swiper-wrapper');
@@ -62,7 +61,6 @@ App.initScreenshotsSlider = function() {
         sliderModal.classList.add('active');
         document.body.classList.add('modal-open');
 
-        // Дождёмся полной загрузки всех изображений
         const allImages = swiperWrapper.querySelectorAll('img');
         let loadedCount = 0;
         const totalImages = allImages.length;

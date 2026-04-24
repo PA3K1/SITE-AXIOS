@@ -11,7 +11,6 @@ const staticComments = [
     { user: "warzone_guy", date: "2025-11-30 21:10:05", text: "В Warzone 2.0 отлично! Kilo 141 и M4 стали меткими. Советую!" }
 ];
 
-// Инициализация комментариев
 function renderComments() {
     const container = document.getElementById('commentsContainer');
     if (!container) return;
@@ -58,7 +57,6 @@ function renderComments() {
     container.appendChild(authMsg);
 }
 
-// Добавление нового комментария
 App.addComment = function() {
     const commentText = document.getElementById('commentText');
     const text = commentText.value.trim();
@@ -90,7 +88,7 @@ App.addComment = function() {
     header.appendChild(delBtn);
     const p = document.createElement('p');
     p.className = 'comments__text';
-    p.textContent = text; // безопасно
+    p.textContent = text; 
     commentDiv.appendChild(sidebar);
     commentDiv.appendChild(header);
     commentDiv.appendChild(p);

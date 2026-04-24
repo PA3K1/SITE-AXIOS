@@ -92,7 +92,6 @@
     font-weight: 600;
 }
 
-/* Отступы между табами и вопросами */
 .tab:not(:last-of-type) {
     margin-bottom: 0;
 }

@@ -4,29 +4,30 @@
         display: none;
     }
 
-    .hamburger {
-        display: block;
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        z-index: 1002;
-        background: transparent;
-        border: none;
-    }
+.hamburger {
+    display: block;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1002;
+    background: transparent;
+    border: none;
+}
 
-    .hamburger span {
-        display: block;
-        position: absolute;
-        height: 3px;
-        width: 100%;
-        background: white;
-        border-radius: 3px;
-        left: 0;
-        transition: 0.25s ease-in-out;
-    }
+.hamburger span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 3px;
+    left: 0;
+    transition: 0.25s ease-in-out;
+}
 
     .hamburger span:nth-child(1) { top: 0; }
     .hamburger span:nth-child(2) { top: 10px; }
@@ -85,13 +86,44 @@
     }
 
     .mobile-actions {
+        position: relative;
         display: flex;
-        gap: 40px;
-        position: fixed;
-        top: 20px;
-        right: 80px;
-        z-index: 1003;
-    }
+        align-items: center;
+        gap: 20px;
+        padding: 15px 20px 10px;
+        position: static;
+}
+
+.mobile-actions .hamburger {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: auto;
+    background: transparent;
+    border: none;
+    margin-left: auto; 
+}
+
+.mobile-actions .hamburger span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 3px;
+    left: 0;
+    transition: 0.25s ease-in-out;
+}
+
+.mobile-actions .hamburger span:nth-child(1) { top: 0; }
+.mobile-actions .hamburger span:nth-child(2) { top: 10px; }
+.mobile-actions .hamburger span:nth-child(3) { top: 20px; }
+
+    .hero__content {
+    margin-left: 0px;
+}
 
     .hero {
         flex-direction: column;
@@ -114,6 +146,13 @@
     .features {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 0;
+    }
+
+    .button-container{
+        bottom: -5px;
     }
 
     .try-button {

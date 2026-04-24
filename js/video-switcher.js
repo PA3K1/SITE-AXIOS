@@ -25,7 +25,7 @@ App.initVideoSwitcher = function() {
         });
     });
 
-    // Mastercard selection in payment modal
+    //  payment modal
     const masterCardImage = document.querySelector('.image_focus');
     const continueButton = document.querySelector('.modal-focus-link');
     if (masterCardImage && continueButton) {

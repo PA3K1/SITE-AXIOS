@@ -27,14 +27,14 @@ window.App.updateHeader = function() {
 
     if (loggedInUser) {
         if (headerOpen) {
-            headerOpen.innerHTML = `<span>${loggedInUser}</span> <a class="header__link open__modal" onclick="window.App.logoutUser()" href="#">ВЫХОД</a>`;
+            headerOpen.innerHTML = `<span class="header__user-email">${loggedInUser}</span> <a class="header__link open__modal" onclick="window.App.logoutUser()" href="#">ВЫХОД</a>`;
         }
         if (mobileActions) {
-            mobileActions.innerHTML = `<span class="header__link" style="color:white;">${loggedInUser}</span> <a class="header__link open__modal" onclick="window.App.logoutUser()" href="#">ВЫХОД</a>`;
+            mobileActions.innerHTML = `<span class="header__user-email" style="color:white;">${loggedInUser}</span> <a class="header__link open__modal" onclick="window.App.logoutUser()" href="#">ВЫХОД</a>`;
         }
         if (authMessage) authMessage.style.display = 'none';
         if (commentForm) commentForm.style.display = 'block';
-        if (commentButton) commentButton.style.display = 'block';
+        if (commentButton) commentButton.style.display = 'flex';
     } else {
         if (headerOpen) {
             headerOpen.innerHTML = `<a class="header__link" onclick="window.App.openBodal(event)" href="#">Регистрация</a> <a class="header__link open__modal" onclick="window.App.openModal(event)" href="">ВХОД</a>`;
@@ -65,7 +65,6 @@ window.App.logoutUser = function() {
     window.App.showToast('Вы вышли из аккаунта!');
 };
 
-// Обработчики форм
 document.addEventListener('submit', function(e) {
     if (e.target.id === 'loginForm') {
         e.preventDefault();
@@ -98,7 +97,6 @@ document.addEventListener('submit', function(e) {
         }
 
         window.App.registerUser(email, password);
-        // Автоматический вход после регистрации: закроет модалку, обновит шапку, покажет тост
         window.App.loginUser(email);
     }
 });

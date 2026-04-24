@@ -121,11 +121,11 @@
     color: #4d5057;
     font-size: 14px;
     font-weight: 600;
-    text-decoration: none;          /* по умолчанию без подчёркивания */
+    text-decoration: none;       
 }
 
 .forget__button:hover {
-    text-decoration: underline;    /* подчёркивание при наведении */
+    text-decoration: underline;  
 }
 
 .header__block-entrance {
@@ -140,7 +140,6 @@ input:focus, button:focus {
     outline: none;
 }
 
-/* Стили модалки оплаты */
 .modal--auto .modal__content-3 {
     border: 2px solid var(--color-accent);
     padding: 20px;

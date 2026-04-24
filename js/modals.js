@@ -30,7 +30,6 @@ window.App.closeModal = function() {
     });
 };
 
-// Закрытие модалки оплаты по клику на фон
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal--auto')) {
         e.target.style.opacity = '0';
