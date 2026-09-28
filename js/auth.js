@@ -1,9 +1,7 @@
 window.App = window.App || {};
 
-window.App.users = [
-    { email: "admin@test.com", password: "12345" },
-    { email: "user@test.com", password: "qwerty" }
-];
+
+window.App.users = []; // Пустой массив — заполняется с сервера
 
 window.App.checkCaptcha = function(input) {
     return input === "6138B";
@@ -14,7 +12,14 @@ window.App.checkEmailExists = function(email) {
 };
 
 window.App.registerUser = function(email, password) {
-    window.App.users.push({ email, password });
+    // ⚠️ В реальном проекте — POST-запрос на сервер
+    console.warn('Register:', email);
+};
+
+window.App.findUser = function(email, password) {
+    // ⚠️ В реальном проекте — запрос на сервер
+    console.warn('Login attempt:', email);
+    return null;
 };
 
 window.App.updateHeader = function() {
@@ -48,10 +53,6 @@ window.App.updateHeader = function() {
     }
 };
 
-window.App.findUser = function(email, password) {
-    return window.App.users.find(u => u.email === email && u.password === password);
-};
-
 window.App.loginUser = function(email) {
     localStorage.setItem('loggedInUser', email);
     window.App.updateHeader();
@@ -71,12 +72,13 @@ document.addEventListener('submit', function(e) {
         const form = e.target;
         const email = form.querySelector('input[type="email"]').value;
         const password = form.querySelector('input[type="password"]').value;
-        const user = window.App.findUser(email, password);
-        if (user) {
+
+        // ⚠️ ЗАГЛУШКА: в реальном проекте — запрос на сервер
+        if (email && password) {
             window.App.loginUser(email);
             form.reset();
         } else {
-            window.App.showToast('Неверный email или пароль!');
+            window.App.showToast('Введите email и пароль');
         }
     }
 
@@ -91,8 +93,8 @@ document.addEventListener('submit', function(e) {
             window.App.showToast('Неверный код с картинки!');
             return;
         }
-        if (window.App.checkEmailExists(email)) {
-            window.App.showToast('Пользователь с таким email уже существует!');
+        if (!email || password.length < 5) {
+            window.App.showToast('Пароль минимум 5 символов!');
             return;
         }
 

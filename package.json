@@ -1,0 +1,23 @@
+{
+  "name": "axios-macro",
+  "version": "1.0.0",
+  "description": "AXIOS Macro website",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "copy:img": "xcopy /E /I /Y img dist\\img",
+    "build:css": "cleancss -o dist/css/all.min.css css/base.css css/header.css css/hero.css css/control-section.css css/games-slider.css css/pricing-cards.css css/video-section.css css/comments.css css/screenshots-slider.css css/faq.css css/contacts.css css/footer.css css/modal.css css/mobile.css",
+    "build:js": "terser js/utils.js js/modals.js js/auth.js js/comments.js js/slider-games.js js/slider-screenshots.js js/video-switcher.js js/faq.js js/mobile-menu.js js/main.js -c -m -o dist/js/bundle.min.js",
+    "build:js:obf": "javascript-obfuscator js --output dist/js-obf --compact true --control-flow-flattening true --dead-code-injection true --string-array true --string-array-encoding base64 --self-defending true --identifier-names-generator hexadecimal",
+    "build:html": "html-minifier-terser --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o dist/index.html index.prod.html",
+    "build": "npm run clean && mkdir dist && mkdir dist\\css && mkdir dist\\js && npm run build:css && npm run build:js && npm run build:html && npm run copy:img",
+    "build:full": "npm run build && npm run build:js:obf"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "html-minifier-terser": "^7.2.0",
+    "javascript-obfuscator": "^4.1.0",
+    "rimraf": "^5.0.5",
+    "terser": "^5.27.0"
+  }
+}

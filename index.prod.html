@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXIOS Macro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="mobile-menu">
+        <div class="mobile-menu__close">&times;</div>
+        <nav class="mobile-nav">
+            <a href="#" class="mobile-nav__link">Цены</a>
+            <a href="#" class="mobile-nav__link">Решение проблем</a>
+            <a href="#" class="mobile-nav__link">Инструкция</a>
+            <a href="#" class="mobile-nav__link">Блог</a>
+        </nav>
+    </div>
+
+    <div class="mobile-actions" id="mobileActions">
+        <a class="header__link" onclick="App.openBodal(event)" href="#">Регистрация</a>
+        <a class="header__link open__modal" onclick="App.openModal(event)" href="">ВХОД</a>
+    </div>
+
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="header__container">
+        <a class="header__link" href="#">Цены</a>
+        <a class="header__link" href="#">Решение проблем</a>
+        <a class="header__link" href="#">Инструкция</a>
+        <div class="dropdown">
+            <span class="dropdown-trigger header__link">Контакты</span>
+            <div class="dropdown-list">
+                <a href="https://vk.com/id603106977">VK</a>
+                <a href="https://discord.com/invite/trH9gJWjTC">DISCORD СЕРВЕР</a>
+            </div>
+        </div>
+        <div class="header__open">
+            <a class="header__link" onclick="App.openBodal(event)" href="#">Регистрация</a>
+            <a class="header__link open__modal" onclick="App.openModal(event)" href="">ВХОД</a>
+        </div>
+    </div>
+</header>
+
+<!-- Модальное окно ВХОД -->
+<div class="modal">
+    <div class="modal__content">
+        <div class="modal__cont-1">
+            <p class="sub__title">ВХОД В КАБИНЕТ</p>
+            <img class="modal__close" src="img/Cancel_Icon.svg.svg" alt="закрыть" onclick="App.closeModal()">
+        </div>
+        <form id="loginForm">
+            <div class="form__content">
+                <input class="form__header" type="email" placeholder="Введите ваш E-mail" required>
+            </div>
+            <div class="form__content">
+                <input class="form__header" type="password" placeholder="Введите ваш пароль" required>
+            </div>
+            <div class="header__forget-block"><a class="forget__button" href="#">Забыл пароль</a></div>
+            <div class="header__block-entrance">
+                <button type="submit" class="entrance__button">ВОЙТИ</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно РЕГИСТРАЦИЯ -->
+<div class="modal modal--registration">
+    <div class="modal__content windoy__content">
+        <div class="modal__cont-1">
+            <p class="sub__title">Добро пожаловать<br>в наше дружное <br> сообщество!</p>
+            <img class="modal__close" src="img/Cancel_Icon.svg.svg" alt="закрыть" onclick="App.closeModal()">
+        </div>
+        <form id="registrationForm">
+            <div class="form__content">
+                <input class="form__header" type="email" name="email" placeholder="Введите ваш E-mail" required>
+            </div>
+            <div class="form__content">
+                <input class="form__header" type="password" name="password" placeholder="Придумайте пароль" required>
+            </div>
+            <div class="form__content__captha">
+                <input class="form__header form__captha" type="text" placeholder="Введите код" required>
+                <img class="captha" src="img/captcha.jpg" alt="captcha">
+            </div>
+            <div class="header__block-entrance">
+                <button type="submit" class="entrance__button entrance__button-2">ЗАРЕТИСТРИРОВАТЬСЯ</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Hero секция -->
+<div class="hero">
+    <div class="hero__logo">
+        <div class="logo-ring">
+            <div class="logo-text">AXIOS</div>
+        </div>
+    </div>
+    <div class="hero__content">
+        <h1 class="hero__title">ПОПРОБУЙ БЕСПЛАТНО 24 ЧАСА! <br> ИГРАЙ БЕЗ ОТДАЧИ</h1>
+        <p class="hero__text">
+            приватные макросы для rust, pubg, apex legends, cs:go, rainbow six siege<br>
+            axios macro - это программа (макрос), которая убирает отдачу у оружия в любой<br>
+            игре без бана для акаунта. Не является читом и полностью безопасна.<br>
+            Работает с любой мышкой.
+        </p>
+        <div class="features">
+            <button class="try-button" onclick="App.scrollToPrices()">ПОПРОБОВАТЬ</button>
+            <div class="badge">ОБНОВЛЕН И РАБОТАЕТ</div>
+        </div>
+    </div>
+</div>
+
+<!-- Control секция -->
+<div class="control-section">
+    <div class="control-content">
+        <div class="text-content">
+            <h2 class="control-title">МАКРОСЫ КОНТРОЛИРУЮТ ОТДАЧУ <br> НА УРОВНЕ КИБЕРСПОРТСМЕНА</h2>
+            <p class="control-text">В одной подписке макросы для RUST, PUBG, Apex Legends, CS:GO, Rainbow Six Siege</p>
+            <p class="control-text">Программа не внедряется в память и не модифицирует файлы или значения в игре!</p>
+            <p class="control-text">Она лишь перемещает ваш курсор по заданному шаблону что-бы минимизировать отдачу!</p>
+            <p class="control-text">Это супер безопасно и не влечет последствий в виде бана!</p>
+        </div>
+        <div class="video-content">
+            <div class="video-wrapper">
+                <img src="img/gameplay.gif" alt="gameplay" class="gameplay-gif">
+            </div>
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="control-button" onclick="App.scrollToPrices()">ПОПРОБОВАТЬ</button>
+    </div>
+</div>
+
+<!-- Слайдер игр -->
+<h2 class="section-title">ВСЕ ИГРЫ В ОДНОЙ ПОДПИСКЕ</h2>
+<div class="games-slider-container">
+    <div class="galery-wrapper">
+        <div class="galery transition" id="galery"></div>
+    </div>
+    <div class="text-games-wrapper">
+        <div class="text-games transition" id="text-games"></div>
+    </div>
+    <div class="slider-dots" id="dots"></div>
+</div>
+
+<!-- Тарифы -->
+<h3 class="section-title" style="padding-top: 115px;">ПРИОБРЕСТИ</h3>
+<div class="container-cards" id="prices">
+    <div class="text-card">
+        <p class="subtitle-big">TEST</p>
+        <div class="text-linear">
+            <p class="mini-sub-text"><svg width="20" height="20"><circle/></svg>Доступ ко всем играм</p>
+        </div>
+        <p class="price_subtitle-text">0 ₽</p>
+        <p class="days">10 ДНЕЙ</p>
+        <p class="sale-product" onclick="App.openBodal(event)">ТЕСТИРОВАТЬ</p>
+    </div>
+    <div class="text-card">
+        <p class="subtitle-big">START</p>
+        <div class="text-linear">
+            <p class="mini-sub-text"><svg width="20" height="20"><circle/></svg>Доступ ко всем играм</p>
+        </div>
+        <p class="price_subtitle-text">333 ₽</p>
+        <p class="days">20 ДНЕЙ</p>
+        <p class="sale-product" onclick="App.openSodal(event)">АКТИВИРОВАТЬ</p>
+    </div>
+    <div class="text-card">
+        <p class="subtitle-big">BASE</p>
+        <div class="text-linear">
+            <p class="mini-sub-text"><svg width="20" height="20"><circle/></svg>Доступ ко всем играм</p>
+        </div>
+        <p class="price_subtitle-text">555 ₽</p>
+        <p class="days">30 ДНЕЙ</p>
+        <p class="sale-product" onclick="App.openSodal(event)">АКТИВИРОВАТЬ</p>
+    </div>
+</div>
+<div class="container-cards">
+    <div class="text-card">
+        <p class="subtitle-big">TEST</p>
+        <div class="text-linear">
+            <p class="mini-sub-text"><svg width="20" height="20"><circle/></svg>Доступ ко всем играм</p>
+        </div>
+        <p class="price_subtitle-text">0 ₽</p>
+        <p class="days">50 ДНЕЙ</p>
+        <p class="sale-product" onclick="App.openSodal(event)">АКТИВИРОВАТЬ</p>
+    </div>
+    <div class="text-card">
+        <p class="subtitle-big">START</p>
+        <div class="text-linear">
+            <p class="mini-sub-text"><svg width="20" height="20"><circle/></svg>Доступ ко всем играм</p>
+        </div>
+        <p class="price_subtitle-text">333 ₽</p>
+        <p class="days">60 ДНЕЙ</p>
+        <p class="sale-product" onclick="App.openSodal(event)">АКТИВИРОВАТЬ</p>
+    </div>
+    <div class="text-card">
+        <p class="subtitle-big">BASE</p>
+        <div class="text-linear">
+            <p class="mini-sub-text"><svg width="20" height="20"><circle/></svg>Доступ ко всем играм</p>
+        </div>
+        <p class="price_subtitle-text">355 ₽</p>
+        <p class="days">90 ДНЕЙ</p>
+        <p class="sale-product" onclick="App.openSodal(event)">АКТИВИРОВАТЬ</p>
+    </div>
+</div>
+
+<!-- Модалка оплаты -->
+<div class="modal modal--auto">
+    <div class="modal__content-3">
+        <p class="focus-modal-text">ВЫБЕРИТЕ СПОСОБ</p>
+        <img class="image_focus" height="90px" src="img/MASTER-CARD.jpg" alt="Mastercard">
+        <div class="modal-focus-link-container">
+            <a class="modal-focus-link disabled" href="https://oplata.info/asp2/pay_cl.asp?id_d=3163926&id_po=0&cart_uid=&ai=&curr=ATM&lang=ru-RU&digiuid=BCC75153-E222-40C5-A16C-5390328619F8&_ow=&_ids_shop=&failpage=https%3A%2F%2Foplata%2Einfo%2Fasp2%2Fpay_wm%2Easp%3Fid_d%3D3163926%26lang%3Dru-RU%26digiuid%3DBCC75153-E222-40C5-A16C-5390328619F8&item_cnt=&promocode=">ПРОДОЛЖИТЬ</a>
+        </div>
+    </div>
+</div>
+
+<!-- Видео -->
+<h4 class="section-title" style="padding-top: 115px;">ВИДЕО AXIOS MACRO</h4>
+<div class="mini-container">
+    <button class="mini-text active" data-video="rainbow-six">RAINBOW SIX SIEGE</button>
+    <button class="mini-text" data-video="rust">RUST</button>
+    <button class="mini-text" data-video="pubg">PUBG</button>
+    <button class="mini-text" data-video="apex">Apex Legends</button>
+    <button class="mini-text" data-video="csgo">CS 2</button>
+</div>
+<div class="container-mini-video">
+    <iframe class="mini-video-ax" id="ax-mini" src="https://www.youtube.com/embed/HqpjPnctPtY" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<!-- Комментарии -->
+<h5 class="section-title">ОТЗЫВЫ ПОЛЬЗОВАТЕЛЕЙ</h5>
+<div class="comments" id="commentsContainer">
+    <!-- комментарии будут вставлены из JS -->
+</div>
+<div class="comments__form" id="commentForm" style="display: none;">
+    <textarea class="comments__form-input" id="commentText" placeholder="ОСТАВЬТЕ ВАШ ОТЗЫВ"></textarea>
+</div>
+<div class="container__button-type" id="commentButton" style="display: none;">
+    <button class="comments__form-submit" id="submitComment">ОТПРАВИТЬ ОТЗЫВ</button>
+</div>
+
+<!-- Скриншоты -->
+<h6 class="section-title">СКРИНШОТЫ ПРОГРАММЫ</h6>
+<div class="slider">
+    <div class="viewport">
+        <div class="track" id="track">
+            <div class="slide" data-index="0">
+                <img src="img/1 programs.avif" alt="Скриншот 1">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+            <div class="slide" data-index="1">
+                <img src="img/2 programs.avif" alt="Скриншот 2">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+            <div class="slide" data-index="2">
+                <img src="img/3 programs.avif" alt="Скриншот 3">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+            <div class="slide" data-index="3">
+                <img src="img/4 programs.avif" alt="Скриншот 4">
+                <div class="search-icon"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E" alt="Поиск"></div>
+            </div>
+        </div>
+    </div>
+    <div class="range-wrap">
+        <input type="range" id="range" min="0" max="100" value="0">
+    </div>
+</div>
+
+<!-- Swiper modal -->
+<div class="slider-modal" id="sliderModal">
+    <span class="slider-modal__close" id="sliderModalClose">&times;</span>
+    <div class="modal-swiper">
+        <div class="swiper" id="modalSwiper">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ -->
+<h2 class="section-title">ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</h2>
+<section class="ques">
+    <div class="wrapper">
+        <div class="quesWrap">
+            <div class="tab" data-tab="2"><div class="circle"></div><p class="qustion-text">Как установить?</p><i class="fa fa-caret-down"></i></div>
+            <div class="info" data-tab="2"><p class="text-answer">Устанавливать не требуется, просто качаем архив после оплаты и запускаем по инструкции которая находится в архиве.</p></div>
+            <div class="tab" data-tab="3"><div class="circle"></div><p class="qustion-text">Программа работает сейчас?</p><i class="fa fa-caret-down"></i></div>
+            <div class="info" data-tab="3"><p class="text-answer">Статус программы можно увидеть на главном экране. Ежеминутный мониторинг статуса и моментальные обновления!</p></div>
+            <div class="tab" data-tab="4"><div class="circle"></div><p class="qustion-text">За это банят?</p><i class="fa fa-caret-down"></i></div>
+            <div class="info" data-tab="4"><p class="text-answer">Программа не внедряется в память и не модифицирует файлы или значения в игре!</p><p class="text-answer">Она лишь перемещает ваш курсор по заданному шаблону что-бы минимизировать отдачу!</p><p class="text-answer">Это супер безопасно и не влечет последствий в виде бана!</p></div>
+            <div class="tab" data-tab="5"><div class="circle"></div><p class="qustion-text">Как обновляется?</p><i class="fa fa-caret-down"></i></div>
+            <div class="info" data-tab="5"><p class="text-answer">Софт обновляется по мере надобности, как только выходит обновление в игре, мы беремся за обновление если это нужно. Вам же ничего не нужно делать, софт обновится на вашей системе автоматически.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты -->
+<div class="contacts">
+    <div class="wrapper">
+        <a href="https://discord.com/invite/ZzdVbd3Ssr" target="_blank"><img src="img/discor-icon.png" alt="discord"></a>
+        <a href="https://vk.com/id603106977" target="_blank"><img src="img/vk-icon.png" alt="vk"></a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <img class="footer__icon" src="img/footer-icon.svg" alt="">
+        <div class="footer__links">
+            <a class="footer__link" href="https://axios-macro.com/privacy-policy">Политика в отношении обработки персональных данных</a>
+            <a class="footer__link" href="https://axios-macro.com/cookie-policy">Политика использования файлов cookie</a>
+            <a class="footer__link" href="https://axios-macro.com/terms-of-service">Пользовательское соглашение</a>
+            <a class="footer__link" href="https://axios-macro.com/redeem">Активация ключа</a>
+            <a class="footer__link" href="https://axios-macro.com/sitemap">Карта сайта</a>
+        </div>
+    </div>
+</footer>
+<div class="name__project">
+    <p class="name__project-text">© 2026 axios macro</p>
+</div>
+
+<script src="https://vk.com/js/api/openapi.js?169"></script>
+<div id="vk_community_messages"></div>
+<script>
+    VK.Widgets.CommunityMessages("vk_community_messages", 236032366, {
+        expanded: 1,
+        widgetPosition: 'right',
+        disableNewMessagesSound: 0,
+        disableExpandChatSound: 1,
+        disableButtonTooltip: 0,
+        tooltipButtonText: 'Есть вопрос? Напиши нам!'
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/bundle.min.js"></script>
+</body>
+</html>
